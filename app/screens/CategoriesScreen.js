@@ -10,36 +10,74 @@ export default class CategoriesScreen extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-      	<View style={styles.buttonRow}>
-			  	<CategoryButton>Asian</CategoryButton>
-			  	<CategoryButton>American</CategoryButton>
-		  	</View>
-		  	<View style={styles.buttonRow}>
-			  	<CategoryButton>Asian</CategoryButton>
-			  	<CategoryButton>American</CategoryButton>
-		  	</View>
-      	<View style={styles.buttonRow}>
-			  	<CategoryButton>Asian</CategoryButton>
-			  	<CategoryButton>American</CategoryButton>
-		  	</View>
-      	<View style={styles.buttonRow}>
-			  	<CategoryButton>Asian</CategoryButton>
-			  	<CategoryButton>American</CategoryButton>
-		  	</View>
+      <View style={styles.mainContainer}>
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerText}>Categories</Text>
+        </View>
+        <View style={styles.buttonsContainer}>
+        	<View style={styles.buttonRow}>
+  			  	<CategoryButton>American</CategoryButton>
+  		  	</View>
+  		  	<View style={styles.buttonRow}>
+  			  	<CategoryButton>Brazilian</CategoryButton>
+  		  	</View>
+        	<View style={styles.buttonRow}>
+  			  	<CategoryButton>Cambodian</CategoryButton>
+  		  	</View>
+        	<View style={styles.buttonRow}>
+  			  	<CategoryButton>Dutch</CategoryButton>
+  		  	</View>
+          <View style={styles.buttonRow}>
+            <CategoryButton>European</CategoryButton>
+          </View>
+          <View style={styles.buttonRow}>
+            <CategoryButton>French</CategoryButton>
+          </View>
+          <View style={styles.buttonRow}>
+            <CategoryButton>Greek</CategoryButton>
+          </View>
+        </View>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+
+  mainContainer: {
+    flex: 1,
+    backgroundColor: '#6600CC',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10,
+  },
+
+  headerContainer: {
+    flex: 0.2,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  headerText: {
+    color: '#FFF',
+    fontSize: 32,
+    fontWeight: '200',
+    textAlign: 'center',
+  },
+
+  buttonsContainer: {
+    flex: 0.8,
+    alignItems: 'center',
+  },
+
 	container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#C39BD3',
+    backgroundColor: '#FFF',
   },
+
   buttonRow: {
-  	flex: 0.2,
   	flexDirection: 'row',
   }
+
 });

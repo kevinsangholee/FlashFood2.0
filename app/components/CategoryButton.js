@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 export default class CategoryButton extends Component {
 
@@ -15,41 +15,53 @@ export default class CategoryButton extends Component {
     const {children} = this.props;
 
     return (
-      <TouchableHighlight 
+      <TouchableOpacity 
         style={[styles.buttonContainer, this.state.pressed && styles.pressedContainer]}
         onPress={this.myOnPress}
-        underlayColor='#8E44AD'
-        activeOpacity={0.8}
+        activeOpacity={1}
       >
         <Text
           style={[styles.categoryText, this.state.pressed && styles.pressedText]}
         >
-          {this.state.pressed ? children : 'Not pressed'}
+          {children}&nbsp;
         </Text>
-      </TouchableHighlight>
+      </TouchableOpacity>
     );
   }
 }
 
 const styles = StyleSheet.create({
 	buttonContainer: {
-    flex: 0.5,
-    margin: 2,
+    flex: 1,
+    margin: 6,
+    marginRight: 20,
+    marginLeft: 20,
     borderColor: '#FFF',
-    borderWidth: 3,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 16,
+    backgroundColor: '#FFF',
+    shadowColor: '#FFFF00',
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
   },
-  pressedContainer: {
-    borderColor: '#F7DC6F',
-  },
-  pressedText: {
-    color: '#F7DC6F'
-  },
+
   categoryText: {
+    color: '#6600CC',
+    fontWeight: '200',
+    fontSize: 24,
+    textAlign: 'left',
+    letterSpacing: 1,
+  },
+
+  pressedContainer: {
+    borderColor: '#FFF',
+    backgroundColor: 'transparent'
+  },
+
+  pressedText: {
     color: '#FFF',
-    fontWeight: 'bold',
-    fontSize: 30,
+    textDecorationLine: 'line-through',
+    textDecorationColor: '#FFF',
   },
 });

@@ -1,34 +1,35 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 
 export default class HomeScreen extends React.Component {
-
-  static navigationOptions = {
-    title: 'Welcome',
-  };
-
-  constructor(props) {
-    super(props);
-    this.state={buttonText: 'GET STARTED'};
-  }
-
-  myPress = () => {
-    this.setState( {
-      buttonText: 'PRESSED BITCH'
-    });
-  }
 
   render() {
     const { navigate } = this.props.navigation;
 
     return (
-      <View style={styles.container}>
-        <TouchableHighlight
-          style={[styles.buttonStandard, styles.depth1]}
-          onPress={() => navigate('Categories', {})}>
-          <Text style={styles.buttonStandardText}>{this.state.buttonText}</Text>
-        </TouchableHighlight>
+      <View style={styles.mainContainer}>
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerText}>What kind of food?</Text>
+        </View>
+        <View style={styles.buttonsContainer}>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={[styles.homeButton1, styles.depth1]}
+              onPress={() => navigate('Result', {})}
+              activeOpacity={1}>
+              <Text style={styles.homeButton1Text}>Random</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={[styles.homeButton2]}
+              onPress={() => navigate('Categories', {})}
+              activeOpacity={1}>
+              <Text style={styles.homeButton2Text}>Customized</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
     );
   }
@@ -37,33 +38,78 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
 
   depth1: {
-    shadowOffset:{  width: 0,  height: 5,  },
-    shadowColor: 'black',
+    shadowColor: '#FFFF00',
     shadowOpacity: 0.5,
-    shadowRadius: 8
+    shadowRadius: 15
   },
 
-  container: {
+  mainContainer: {
     flex: 1,
-    backgroundColor: '#C39BD3',
+    backgroundColor: '#6600CC',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10,
+  },
+
+  headerContainer: {
+    flex: 0.5,
     alignItems: 'center',
     justifyContent: 'center',
   },
 
-  buttonStandardText: {
-    color: '#fff',
-    fontSize: 30,
+  headerText: {
+    color: '#FFF',
+    fontSize: 32,
     fontWeight: '200',
-    letterSpacing: 3,
+    textAlign: 'center',
   },
 
-  buttonStandard:  {
+  buttonsContainer: {
+    flex: 0.5,
+    alignItems: 'center',
+  },
+
+  buttonContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  homeButton1:  {
+    flex: 1,
     marginRight: 40,
     marginLeft: 40,
-    marginTop: 10,
+    marginTop: 6,
+    padding: 20,
+    backgroundColor: '#FFF',
+    borderRadius: 5,
+  },
+
+  homeButton1Text: {
+    color: '#6600CC',
+    fontSize: 32,
+    fontWeight: '200',
+    letterSpacing: 1,
+    textAlign: 'left',
+  },
+
+  homeButton2:  {
+    flex: 1,
+    marginRight: 40,
+    marginLeft: 40,
+    marginTop: 20,
     padding: 20,
     backgroundColor: '#6600CC',
+    borderWidth: 1,
+    borderColor: '#FFF',
     borderRadius: 5,
+  },
+
+  homeButton2Text: {
+    color: '#FFF',
+    fontSize: 32,
+    fontWeight: '200',
+    letterSpacing: 1,
+    textAlign: 'left',
   },
 
 });
