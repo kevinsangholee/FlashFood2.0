@@ -5,32 +5,32 @@ import { StackNavigator } from 'react-navigation';
 export default class HomeScreen extends React.Component {
 
   render() {
-    // const { navigate } = this.props.navigation;
+    const { navigate } = this.props.navigation;
 
     const { onPress } = this.props;
 
     return (
       <View style={styles.mainContainer}>
         <View style={styles.headerContainer}>
-          <Text style={styles.headerText}>What kind of food?</Text>
+          <Text style={styles.headerText}>What kind of search?</Text>
         </View>
         <View style={styles.buttonsContainer}>
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={[styles.homeButton1, styles.depth1]}
-              // onPress={() => navigate('Result', {})}
-              onPress={() => onPress(2)}
+              onPress={() => navigate('Result', {})}
+              // onPress={() => onPress(2)}
               activeOpacity={1}>
-              <Text style={styles.homeButton1Text}>Random</Text>
+              <Text style={styles.homeButton1Text}>🎲  Random</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={[styles.homeButton2]}
-              // onPress={() => navigate('Categories', {})}
-              onPress={() => onPress(1)}
+              onPress={() => navigate('Customization', {})}
+              //onPress={() => onPress(1)}
               activeOpacity={1}>
-              <Text style={styles.homeButton2Text}>Customized</Text>
+              <Text style={styles.homeButton2Text}>⚙  Custom</Text>
             </TouchableOpacity>
           </View>
         </View>
