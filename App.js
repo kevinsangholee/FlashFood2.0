@@ -7,11 +7,11 @@ import ResultScreen from './app/screens/ResultScreen';
 import DistanceScreen from './app/screens/DistanceScreen';
 import Swiper from 'react-native-swiper'
 
-const Navigator = StackNavigator({
-  Home: { screen: HomeScreen, }, 
-  Categories: { screen: CategoriesScreen },
-  Result: { screen: ResultScreen },
-}, {headerMode: 'none'});
+// const Navigator = StackNavigator({
+//   Home: { screen: HomeScreen, }, 
+//   Categories: { screen: CategoriesScreen },
+//   Result: { screen: ResultScreen },
+// }, {headerMode: 'none'});
 
 export default class App extends Component {
   render() {
