@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import CategoryButton from './../components/CategoryButton';
 import CustomizationScreen from './CustomizationScreen';
 
@@ -8,31 +8,36 @@ export default class CategoriesScreen extends Component {
   render() {
     return (
       <View style={styles.mainContainer}>
-        <View style={styles.headerContainer}>
-          <Text style={styles.headerText}>Select Your Categories</Text>
-        </View>
-        <View style={styles.buttonsContainer}>
-        	<View style={styles.buttonRow}>
-  			  	<CategoryButton>American</CategoryButton>
-  		  	</View>
-  		  	<View style={styles.buttonRow}>
-  			  	<CategoryButton>Brazilian</CategoryButton>
-  		  	</View>
-        	<View style={styles.buttonRow}>
-  			  	<CategoryButton>Cambodian</CategoryButton>
-  		  	</View>
-        	<View style={styles.buttonRow}>
-  			  	<CategoryButton>Dutch</CategoryButton>
-  		  	</View>
-          <View style={styles.buttonRow}>
-            <CategoryButton>European</CategoryButton>
-          </View>
-          <View style={styles.buttonRow}>
-            <CategoryButton>French</CategoryButton>
-          </View>
-          <View style={styles.buttonRow}>
-            <CategoryButton>Greek</CategoryButton>
-          </View>
+        <View style={styles.scrollViewContainer}>
+          <ScrollView style={styles.scrollView}>
+            <View style={styles.headerContainer}>
+              <Text style={styles.headerText}>Categories</Text>
+            </View>
+            <View style={styles.buttonsContainer}>
+            	<View style={styles.buttonRow}>
+      			  	<CategoryButton>American</CategoryButton>
+      		  	</View>
+      		  	<View style={styles.buttonRow}>
+      			  	<CategoryButton>Brazilian</CategoryButton>
+      		  	</View>
+            	<View style={styles.buttonRow}>
+      			  	<CategoryButton>Cambodian</CategoryButton>
+      		  	</View>
+            	<View style={styles.buttonRow}>
+      			  	<CategoryButton>Dutch</CategoryButton>
+      		  	</View>
+              <View style={styles.buttonRow}>
+                <CategoryButton>European</CategoryButton>
+              </View>
+              <View style={styles.buttonRow}>
+                <CategoryButton>French</CategoryButton>
+              </View>
+              <View style={styles.buttonRow}>
+                <CategoryButton>Greek</CategoryButton>
+              </View>
+            </View>
+            <View style={styles.footerOffset}></View>
+          </ScrollView>
         </View>
         <View style={styles.fixedBottom}>
           <TouchableOpacity
@@ -54,11 +59,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#6600CC',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 10,
+  },
+
+  scrollViewContainer: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+
+  scrollView: {
+    flex: 1,
   },
 
   headerContainer: {
-    flex: 0.2,
+    height: 140,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -71,7 +84,6 @@ const styles = StyleSheet.create({
   },
 
   buttonsContainer: {
-    flex: 0.8,
     alignItems: 'center',
   },
 
@@ -124,5 +136,9 @@ const styles = StyleSheet.create({
     fontWeight: '200',
     color: '#FFF',
   },
+
+  footerOffset: {
+    height: 64,
+  }
 
 });
