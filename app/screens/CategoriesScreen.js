@@ -12,7 +12,7 @@ export default class CategoriesScreen extends Component {
     return (
       <View style={styles.mainContainer}>
         <View style={styles.headerContainer}>
-          <Text style={styles.headerText}>Categories</Text>
+          <Text style={styles.headerText}>Select Your Categories</Text>
         </View>
         <View style={styles.buttonsContainer}>
         	<View style={styles.buttonRow}>
