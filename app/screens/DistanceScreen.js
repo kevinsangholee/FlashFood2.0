@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { StyleSheet, Text, View, Button, TouchableOpacity, Slider } from 'react-native';
 import { StackNavigator } from 'react-navigation';
+import { setDistance } from '../actions'
 
-export default class DistanceScreen extends Component {
-
-  state = {
-    currentDistance: 1,
-  }
+class DistanceScreen extends Component {
 
   render() {
+
+    const { setDist, distance } = this.props
 
     return (
       <View style={styles.mainContainer}>
@@ -17,21 +17,33 @@ export default class DistanceScreen extends Component {
         </View>
         <View style={styles.sliderContainer}>
           <View style={styles.milesTextContainer}>
-            <Text style={styles.distanceText}>{this.state.currentDistance}</Text>
+            <Text style={styles.distanceText}>{distance}</Text>
             <Text style={styles.milesText}>mi.</Text>
           </View>
           <Slider
             style={styles.slider} 
             minimumValue={1}
             maximumValue={15}
-            onValueChange={(value) => this.setState({
-              currentDistance: value,
-            })}
+            onValueChange={(value) => setDist(value)}
             step={1}
           />
         </View>
       </View>
     );
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    distance: state.choices.distance
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setDist: (distance) => {
+      dispatch(setDistance(distance))
+    }
   }
 }
 
@@ -78,3 +90,5 @@ const styles = StyleSheet.create({
     fontWeight: '200',
   }
 });
+
+export default connect(mapStateToProps, mapDispatchToProps)(DistanceScreen)
