@@ -6,8 +6,10 @@ import CategoriesScreen from './CategoriesScreen';
 import Swiper from 'react-native-swiper';
 
 export default class CustomizationScreen extends Component {
+
   render() {
-    const { navigate } = this.props.navigation;
+
+    const { goBack } = this.props.navigation ;
     return(
       <View style={{flex: 1}}>
         <StatusBar
@@ -24,8 +26,7 @@ export default class CustomizationScreen extends Component {
             prevButton={<Text style={[styles.buttonText, styles.buttonMod]}>&larr;</Text>}
             nextButton={<Text style={[styles.buttonText, styles.buttonMod]}>&rarr;</Text>}
           >
-            <CategoriesScreen 
-            />
+            <CategoriesScreen goHome={goBack}/>
             <DistanceScreen />
           </Swiper>
         </View>

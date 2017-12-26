@@ -6,6 +6,9 @@ import CustomizationScreen from './CustomizationScreen';
 export default class CategoriesScreen extends Component {
 
   render() {
+
+    const { goHome } = this.props;
+
     return (
       <View style={styles.mainContainer}>
         <View style={styles.scrollViewContainer}>
@@ -42,9 +45,9 @@ export default class CategoriesScreen extends Component {
         <View style={styles.fixedBottom}>
           <TouchableOpacity
             style={styles.backButton}
-            //onPress={() => navigate('Home', {})}
+            onPress={() => goHome()}
             activeOpacity={0.5}>
-              <Text style={styles.bottomButonText}>🏠</Text>
+              <Text style={styles.bottomButtonText}>🏠</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -131,7 +134,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6,
   },
 
-  bottomButonText: {
+  bottomButtonText: {
     fontSize: 20,
     fontWeight: '200',
     color: '#FFF',

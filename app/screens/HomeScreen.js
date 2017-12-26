@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity, StatusBar } from 'react-native';
-import { StackNavigator } from 'react-navigation';
 
 export default class HomeScreen extends React.Component {
 
   render() {
-    const { navigate } = this.props.navigation;
 
-    const { onPress } = this.props;
+    const { navigation } = this.props;
 
     return (
       <View style={styles.mainContainer}>
@@ -18,7 +16,7 @@ export default class HomeScreen extends React.Component {
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={[styles.homeButton1, styles.depth1]}
-              onPress={() => navigate('Result', {})}
+              onPress={() => navigation.navigate('Result', {})}
               // onPress={() => onPress(2)}
               activeOpacity={1}>
               <Text style={styles.homeButton1Text}>🎲  Random</Text>
@@ -27,7 +25,7 @@ export default class HomeScreen extends React.Component {
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={[styles.homeButton2]}
-              onPress={() => navigate('Customization', {})}
+              onPress={() => navigation.navigate('Customization', {})}
               //onPress={() => onPress(1)}
               activeOpacity={1}>
               <Text style={styles.homeButton2Text}>⚙  Custom</Text>
