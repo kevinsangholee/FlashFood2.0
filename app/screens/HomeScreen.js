@@ -17,8 +17,8 @@ export default class HomeScreen extends React.Component {
         this.state.headerAnim,
         {
           toValue: 1,
-          duration: 500,
-          delay: 100,
+          duration: 400,
+          delay: 500,
         }
       ),
       Animated.parallel([
@@ -26,8 +26,8 @@ export default class HomeScreen extends React.Component {
           this.state.button1Anim1,
           {
             toValue: 1,
-            duration: 500,
-            delay: 50,
+            duration: 600,
+            delay: 400,
             easing: Easing.elastic(1),
           }
         ),
@@ -35,8 +35,8 @@ export default class HomeScreen extends React.Component {
           this.state.orTextAnim,
           {
             toValue: 1,
-            duration: 500,
-            delay: 150,
+            duration: 600,
+            delay: 800,
             easing: Easing.elastic(1),
           }
         ),
@@ -44,8 +44,8 @@ export default class HomeScreen extends React.Component {
           this.state.button2Anim,
           {
             toValue: 1,
-            duration: 500,
-            delay: 250,
+            duration: 600,
+            delay: 850,
             easing: Easing.elastic(1),
           }
         ),
@@ -54,8 +54,8 @@ export default class HomeScreen extends React.Component {
         this.state.button1Anim2,
         {
           toValue: 1,
-          duration: 800,
-          easing: Easing.bezier(.28,1.55,.28,1.55),
+          duration: 2000,
+          easing: Easing.bezier(0,1.59,0,1.59),
         }
       ),
     ]).start();
@@ -69,7 +69,15 @@ export default class HomeScreen extends React.Component {
 
     return (
       <View style={styles.mainContainer}>
-        <Animated.View style={[styles.headerContainer, { opacity: headerAnim }]}>
+        <Animated.View style={[styles.headerContainer, { 
+                                opacity: headerAnim,
+                                transform: [{
+                                  translateY: headerAnim.interpolate({
+                                    inputRange: [0, 1],
+                                    outputRange: [10, 0],
+                                  }),
+                                }],
+                              }]}>
           <Text style={styles.headerText}>Hungry?</Text>
         </Animated.View>
         <View style={styles.buttonsContainer}>
@@ -85,6 +93,10 @@ export default class HomeScreen extends React.Component {
                                     inputRange: [0, 1],
                                     outputRange: [0, 0.7],
                                   }),
+                                  shadowRadius: button1Anim2.interpolate({
+                                    inputRange: [0, 1],
+                                    outputRange: [0, 20],
+                                  }),
                                 }]}>
             <TouchableOpacity
               style={[styles.homeButton1]}
@@ -98,7 +110,7 @@ export default class HomeScreen extends React.Component {
                           transform: [{
                             translateY: orTextAnim.interpolate({
                               inputRange: [0, 1],
-                              outputRange: [40, 0],
+                              outputRange: [80, 0],
                             }),
                           }],
                         }]}>
@@ -109,7 +121,7 @@ export default class HomeScreen extends React.Component {
                                   transform: [{
                                     translateY: button2Anim.interpolate({
                                       inputRange: [0, 1],
-                                      outputRange: [40, 0],
+                                      outputRange: [80, 0],
                                     }),
                                   }],
                                 }]}>
