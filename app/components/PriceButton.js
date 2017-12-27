@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
-export default class CategoryButton extends Component {
+export default class PriceButton extends Component {
 
   state = {
-    pressed: false,
+    pressed: true,
   }
 
   myOnPress = () => {
@@ -23,7 +23,7 @@ export default class CategoryButton extends Component {
         <Text
           style={[styles.categoryText, this.state.pressed && styles.pressedText]}
         >
-          {children}&nbsp;
+          {children}
         </Text>
       </TouchableOpacity>
     );
@@ -31,37 +31,35 @@ export default class CategoryButton extends Component {
 }
 
 const styles = StyleSheet.create({
+
 	buttonContainer: {
-    flex: 1,
-    margin: 6,
-    marginRight: 20,
-    marginLeft: 20,
-    borderColor: '#FFF',
+    marginVertical: 6,
+    marginHorizontal: 3,
+    borderColor: '#6600CC',
     borderWidth: 1,
     borderRadius: 5,
-    padding: 16,
+    padding: 14,
     backgroundColor: '#FFF',
-    shadowColor: '#FFFF00',
-    shadowOpacity: 0.4,
-    shadowRadius: 10,
   },
 
   categoryText: {
     color: '#6600CC',
-    fontWeight: '200',
-    fontSize: 24,
+    fontWeight: '300',
+    fontSize: 22,
     textAlign: 'left',
     letterSpacing: 1,
   },
 
   pressedContainer: {
-    borderColor: '#FFF',
-    backgroundColor: 'transparent'
+    backgroundColor: '#6600CC',
+    shadowOffset: { height: 1, width: 1},
+    shadowColor: '#000000',
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
   },
 
   pressedText: {
     color: '#FFF',
-    textDecorationLine: 'line-through',
-    textDecorationColor: '#FFF',
   },
+
 });

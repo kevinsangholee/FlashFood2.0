@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, StatusBar, Text, View } from 'react-native';
 import CategoryButton from './../components/CategoryButton';
-import DistanceScreen from './DistanceScreen';
+import DetailsScreen from './DetailsScreen';
 import CategoriesScreen from './CategoriesScreen';
 import Swiper from 'react-native-swiper';
 
@@ -27,7 +27,7 @@ export default class CustomizationScreen extends Component {
             nextButton={<Text style={[styles.buttonText, styles.buttonMod]}>&rarr;</Text>}
           >
             <CategoriesScreen goHome={goBack}/>
-            <DistanceScreen />
+            <DetailsScreen />
           </Swiper>
         </View>
       </View>
