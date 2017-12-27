@@ -36,7 +36,7 @@ export default class HomeScreen extends React.Component {
           {
             toValue: 1,
             duration: 600,
-            delay: 800,
+            delay: 900,
             easing: Easing.elastic(1),
           }
         ),
@@ -45,7 +45,7 @@ export default class HomeScreen extends React.Component {
           {
             toValue: 1,
             duration: 600,
-            delay: 850,
+            delay: 800,
             easing: Easing.elastic(1),
           }
         ),
