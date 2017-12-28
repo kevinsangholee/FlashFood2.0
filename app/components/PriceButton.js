@@ -48,6 +48,8 @@ const styles = StyleSheet.create({
     fontSize: 22,
     textAlign: 'left',
     letterSpacing: 1,
+    textDecorationLine: 'line-through',
+    textDecorationColor: '#6600CC',
   },
 
   pressedContainer: {
@@ -60,6 +62,7 @@ const styles = StyleSheet.create({
 
   pressedText: {
     color: '#FFF',
+    textDecorationLine: 'none',
   },
 
 });

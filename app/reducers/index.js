@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import { SET_CATEGORIES, SET_DISTANCE, SET_PRICE, GET_RESTAURANTS } from '../actions/'
 
 // Intial state for choices
-let initialChoices = { categories: [], distance: 10, price: '$' };
+let initialChoices = { categories: [], distance: 10, price: ['$', '$$', '$$$', '$$$$'] };
 
 // Reducer for choices
 const choices = (state = initialChoices, action) => {

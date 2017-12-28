@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, Button, TouchableOpacity, Slider, ScrollView } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import { setDistance } from '../actions';
+import { setDistance, setPrice } from '../actions';
 import PriceButton from './../components/PriceButton';
 
 class DetailsScreen extends Component {
