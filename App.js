@@ -1,12 +1,15 @@
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
 import { Provider } from 'react-redux'
 import masterReducer from './app/reducers'
 import CategoriesScreen from './app/screens/CategoriesScreen';
 import HomeScreen from './app/screens/HomeScreen';
 import ResultScreen from './app/screens/ResultScreen';
 import CustomizationScreen from './app/screens/CustomizationScreen';
+import './ReactotronConfig';
+import Reactotron from 'reactotron-react-native'
 
 const Navigator = StackNavigator({
   Home: { screen: HomeScreen, },
@@ -15,7 +18,7 @@ const Navigator = StackNavigator({
   Result: { screen: ResultScreen },
 }, {headerMode: 'none'});
 
-let store = createStore(masterReducer)
+const store = Reactotron.createStore(masterReducer, applyMiddleware(thunk))
 
 class App extends React.Component {
 

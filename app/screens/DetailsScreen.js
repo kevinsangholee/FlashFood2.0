@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, Button, TouchableOpacity, Slider, ScrollView } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import { setDistance, setPrice } from '../actions';
+import { setDistance } from '../actions';
 import PriceButton from './../components/PriceButton';
 
 class DetailsScreen extends Component {
@@ -41,10 +41,10 @@ class DetailsScreen extends Component {
                 <Text style={styles.detailsHeader}>Price</Text>
               </View>
               <View style={styles.priceButtonRow}>
-                <PriceButton>$</PriceButton>
-                <PriceButton>$$</PriceButton>
-                <PriceButton>$$$</PriceButton>
-                <PriceButton>$$$$</PriceButton>
+                <PriceButton value={1}>$</PriceButton>
+                <PriceButton value={2}>$$</PriceButton>
+                <PriceButton value={3}>$$$</PriceButton>
+                <PriceButton value={4}>$$$$</PriceButton>
               </View>
             </View>
           </ScrollView>

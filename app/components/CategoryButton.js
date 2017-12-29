@@ -1,23 +1,24 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { setCategories } from '../actions'
+import { connect } from 'react-redux'
 
-export default class CategoryButton extends Component {
+class CategoryButton extends Component {
 
   state = {
     pressed: false,
   }
 
-  myOnPress = () => {
-    this.setState({pressed: !this.state.pressed})
-  }
-
   render() {
-    const {children} = this.props;
+    const { children, setCategories } = this.props;
 
     return (
       <TouchableOpacity 
         style={[styles.buttonContainer, this.state.pressed && styles.pressedContainer]}
-        onPress={this.myOnPress}
+        onPress={() => {
+          this.setState({pressed: !this.state.pressed})
+          setCategories(children)
+        }}
         activeOpacity={1}
       >
         <Text
@@ -27,6 +28,14 @@ export default class CategoryButton extends Component {
         </Text>
       </TouchableOpacity>
     );
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setCategories: (category) => {
+      dispatch(setCategories(category))
+    }
   }
 }
 
@@ -65,3 +74,5 @@ const styles = StyleSheet.create({
     textDecorationColor: '#FFF',
   },
 });
+
+export default connect(null, mapDispatchToProps)(CategoryButton)

@@ -3,8 +3,8 @@ export const SET_DISTANCE =  'SET_DISTANCE'
 export const SET_PRICE = 'SET_PRICE'
 export const GET_RESTAURANTS = 'GET_RESTAURANTS'
 
-export function setCategories(categories) {
-	return { type: SET_CATEGORIES, categories }
+export function setCategories(category) {
+	return { type: SET_CATEGORIES, category }
 }
 
 export function setDistance(distance) {

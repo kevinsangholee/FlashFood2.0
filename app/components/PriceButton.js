@@ -1,23 +1,25 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
+import { setPrice } from '../actions';
 
-export default class PriceButton extends Component {
+class PriceButton extends Component {
 
   state = {
     pressed: true,
   }
 
-  myOnPress = () => {
-    this.setState({pressed: !this.state.pressed})
-  }
-
   render() {
-    const {children} = this.props;
+
+    const {children, setPrice, value } = this.props;
 
     return (
       <TouchableOpacity 
         style={[styles.buttonContainer, this.state.pressed && styles.pressedContainer]}
-        onPress={this.myOnPress}
+        onPress={() => {
+          this.setState({pressed: !this.state.pressed})
+          setPrice(value)
+        }}
         activeOpacity={1}
       >
         <Text
@@ -27,6 +29,14 @@ export default class PriceButton extends Component {
         </Text>
       </TouchableOpacity>
     );
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setPrice: (price) => {
+      dispatch(setPrice(price))
+    }
   }
 }
 
@@ -66,3 +76,5 @@ const styles = StyleSheet.create({
   },
 
 });
+
+export default connect(null, mapDispatchToProps)(PriceButton)
