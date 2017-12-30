@@ -50,6 +50,11 @@ class DetailsScreen extends Component {
                 <PriceButton value={4} noneSelected={priceNotSelected}>$$$$</PriceButton>
               </View>
             </View>
+            <View style={styles.detailsContainer}>
+              <View style={styles.detailsHeaderContainer}>
+                <Text style={styles.detailsHeader}>Categories</Text>
+              </View>
+            </View>
           </ScrollView>
         </View>
       </View>
