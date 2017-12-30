@@ -11,11 +11,13 @@ class PriceButton extends Component {
 
   render() {
 
-    const {children, setPrice, value } = this.props;
+    const {children, setPrice, value, noneSelected } = this.props;
 
     return (
       <TouchableOpacity 
-        style={[styles.buttonContainer, this.state.pressed && styles.pressedContainer]}
+        style={[styles.buttonContainer, 
+                this.state.pressed && styles.pressedContainer,
+                noneSelected && styles.noneSelected]}
         onPress={() => {
           this.setState({pressed: !this.state.pressed})
           setPrice(value)
@@ -74,6 +76,10 @@ const styles = StyleSheet.create({
     color: '#FFF',
     textDecorationLine: 'none',
   },
+
+  noneSelected: {
+    backgroundColor: '#FFF2F1'
+  }
 
 });
 
