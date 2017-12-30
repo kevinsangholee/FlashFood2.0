@@ -1,14 +1,41 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity, Animated, Easing } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 
 export default class ResultScreen extends Component {
 
+  state = {
+    resultAnim: new Animated.Value(0),
+  }
+
+  componentDidMount() {
+    Animated.sequence([
+      Animated.parallel([
+        Animated.timing(
+          this.state.resultAnim,
+          {
+            toValue: 1,
+            duration: 1000,
+            delay: 500,
+          }
+        ),
+      ]),
+    ]).start();
+  }
+
   render() {
+
+    let { resultAnim } = this.state;
+
     return (
       <View style={styles.mainContainer}>
-        <View style={styles.resultContainer}>
-        </View>
+        <Animated.View style={[styles.resultContainer, {
+                        shadowOpacity: resultAnim.interpolate({
+                          inputRange: [0, 1],
+                          outputRange: [0, 0.3],
+                        }),
+                      }]}>
+        </Animated.View>
         <View style={styles.buttonsContainer}>
           <TouchableOpacity 
             style={styles.resultButton1}
@@ -56,7 +83,7 @@ const styles = StyleSheet.create({
     shadowOffset: { height: 2 },
     shadowColor: '#000',
     shadowOpacity: 0.2,
-    shadowRadius: 5,
+    shadowRadius: 10,
     borderRadius: 5,
   },
 

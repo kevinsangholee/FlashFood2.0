@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Animated, StyleSheet, Text, View, Button, TouchableOpacity, StatusBar, Easing } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity, StatusBar, Animated, Easing } from 'react-native';
 
 export default class HomeScreen extends React.Component {
 
@@ -13,21 +13,21 @@ export default class HomeScreen extends React.Component {
 
   componentDidMount() {
     Animated.sequence([
-      Animated.timing(
-        this.state.headerAnim,
-        {
-          toValue: 1,
-          duration: 400,
-          delay: 500,
-        }
-      ),
       Animated.parallel([
+        /*Animated.timing(
+          this.state.headerAnim,
+          {
+            toValue: 1,
+            duration: 400,
+            delay: 100,
+          }
+        ),*/
         Animated.timing(
           this.state.button1Anim1,
           {
             toValue: 1,
-            duration: 600,
-            delay: 400,
+            duration: 700,
+            delay: 100,
             easing: Easing.elastic(1),
           }
         ),
@@ -35,8 +35,8 @@ export default class HomeScreen extends React.Component {
           this.state.orTextAnim,
           {
             toValue: 1,
-            duration: 600,
-            delay: 900,
+            duration: 700,
+            delay: 400,
             easing: Easing.elastic(1),
           }
         ),
@@ -44,8 +44,8 @@ export default class HomeScreen extends React.Component {
           this.state.button2Anim,
           {
             toValue: 1,
-            duration: 600,
-            delay: 800,
+            duration: 700,
+            delay: 500,
             easing: Easing.elastic(1),
           }
         ),
@@ -59,7 +59,6 @@ export default class HomeScreen extends React.Component {
         }
       ),
     ]).start();
-
   }
 
   render() {
@@ -69,24 +68,24 @@ export default class HomeScreen extends React.Component {
 
     return (
       <View style={styles.mainContainer}>
-        <Animated.View style={[styles.headerContainer, { 
-                                opacity: headerAnim,
-                                transform: [{
-                                  translateY: headerAnim.interpolate({
-                                    inputRange: [0, 1],
-                                    outputRange: [10, 0],
-                                  }),
-                                }],
-                              }]}>
+        {/*<Animated.View style={[styles.headerContainer, { 
+                                    opacity: headerAnim,
+                                    transform: [{
+                                      translateY: headerAnim.interpolate({
+                                        inputRange: [0, 1],
+                                        outputRange: [10, 0],
+                                      }),
+                                    }],
+                                  }]}>
           <Text style={styles.headerText}>Hungry?</Text>
-        </Animated.View>
+        </Animated.View>*/}
         <View style={styles.buttonsContainer}>
           <Animated.View style={[styles.buttonContainer, {
                                   opacity: button1Anim1,
                                   transform: [{
                                     translateY: button1Anim1.interpolate({
                                       inputRange: [0, 1],
-                                      outputRange: [40, 0],
+                                      outputRange: [30, 0],
                                     }),
                                   }],
                                   shadowOpacity: button1Anim2.interpolate({
@@ -95,7 +94,7 @@ export default class HomeScreen extends React.Component {
                                   }),
                                   shadowRadius: button1Anim2.interpolate({
                                     inputRange: [0, 1],
-                                    outputRange: [0, 20],
+                                    outputRange: [0, 40],
                                   }),
                                 }]}>
             <TouchableOpacity
@@ -110,7 +109,7 @@ export default class HomeScreen extends React.Component {
                           transform: [{
                             translateY: orTextAnim.interpolate({
                               inputRange: [0, 1],
-                              outputRange: [80, 0],
+                              outputRange: [90, 0],
                             }),
                           }],
                         }]}>
@@ -121,7 +120,7 @@ export default class HomeScreen extends React.Component {
                                   transform: [{
                                     translateY: button2Anim.interpolate({
                                       inputRange: [0, 1],
-                                      outputRange: [80, 0],
+                                      outputRange: [100, 0],
                                     }),
                                   }],
                                 }]}>
@@ -149,9 +148,9 @@ const styles = StyleSheet.create({
   },
 
   headerContainer: {
-    flex: 0.4,
+    height: 144,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
 
   headerText: {
@@ -173,8 +172,9 @@ const styles = StyleSheet.create({
   },
 
   buttonsContainer: {
-    flex: 0.6,
+    flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
   },
 
   buttonContainer: {
