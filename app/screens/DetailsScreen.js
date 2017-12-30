@@ -9,7 +9,7 @@ class DetailsScreen extends Component {
 
   render() {
 
-    const { setDist, distance } = this.props
+    const { setDist, distance, priceNotSelected } = this.props
 
     return (
       <View style={styles.mainContainer}>
@@ -36,15 +36,18 @@ class DetailsScreen extends Component {
                 minimumTrackTintColor='#6600CC'
               />
             </View>
-            <View style={styles.detailsContainer}>
+            <View style={[styles.detailsContainer, priceNotSelected && styles.priceNotSelectedContainer]}>
               <View style={styles.detailsHeaderContainer}>
-                <Text style={styles.detailsHeader}>Price</Text>
+                <Text style={[styles.detailsHeader, priceNotSelected && styles.priceNotSelectedHeader]}>Price</Text>
+                { priceNotSelected && 
+                  <Text style={styles.priceNotSelected}>Please select a price</Text>
+                }
               </View>
               <View style={styles.priceButtonRow}>
-                <PriceButton value={1}>$</PriceButton>
-                <PriceButton value={2}>$$</PriceButton>
-                <PriceButton value={3}>$$$</PriceButton>
-                <PriceButton value={4}>$$$$</PriceButton>
+                <PriceButton value={1} noneSelected={priceNotSelected}>$</PriceButton>
+                <PriceButton value={2} noneSelected={priceNotSelected}>$$</PriceButton>
+                <PriceButton value={3} noneSelected={priceNotSelected}>$$$</PriceButton>
+                <PriceButton value={4} noneSelected={priceNotSelected}>$$$$</PriceButton>
               </View>
             </View>
           </ScrollView>
@@ -56,7 +59,8 @@ class DetailsScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    distance: state.choices.distance
+    distance: state.choices.distance,
+    priceNotSelected: state.choices.priceNotSelected
   }
 }
 
@@ -113,6 +117,7 @@ const styles = StyleSheet.create({
 
   detailsHeaderContainer: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     borderBottomWidth: 1,
     borderColor: '#eeeeee',
     marginBottom: 20,
@@ -148,6 +153,23 @@ const styles = StyleSheet.create({
     fontSize: 32,
     lineHeight: 48,
     fontWeight: '200',
+  },
+
+  priceNotSelected: {
+    marginTop: 6,
+    color: 'red',
+    fontSize: 13,
+  },
+
+  priceNotSelectedHeader: {
+    color: 'red'
+  },
+
+  priceNotSelectedContainer: {
+    shadowColor: 'red',
+    shadowOpacity: 0.9,
+    shadowRadius: 10,
+    backgroundColor: '#FFF2F1'
   }
 });
 

@@ -6,7 +6,8 @@ import Reactotron from 'reactotron-react-native'
 let initialChoices = { 
 	categories: ['American', 'Brazilian', 'Cambodian', 'Dutch', 'European', 'French', 'Greek'],
 	distance: 10, 
-	price: [1, 2, 3, 4] 
+	price: [1, 2, 3, 4] ,
+	priceNotSelected: false,
 };
 
 // Reducer for choices
@@ -39,9 +40,18 @@ const choices = (state = initialChoices, action) => {
 			} else {
 				newPrices.splice(idx, 1)
 			}
-			return {
-				...state,
-				price: newPrices,
+			if(newPrices.length === 0) {
+				return {
+					...state,
+					price: newPrices,
+					priceNotSelected: true		
+				}
+			} else {
+				return {
+					...state,
+					price: newPrices,
+					priceNotSelected: false
+				}	
 			}
 		default:
 			return state
