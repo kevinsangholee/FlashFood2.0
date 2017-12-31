@@ -32,7 +32,7 @@ class PriceButton extends Component {
       </TouchableOpacity>
     );
   }
-}
+}``
 
 const mapDispatchToProps = (dispatch) => {
   return {

@@ -42,36 +42,34 @@ const mapDispatchToProps = (dispatch) => {
 const styles = StyleSheet.create({
 	buttonContainer: {
     flex: 1,
-    margin: 6,
-    marginRight: 20,
-    marginLeft: 20,
-    borderColor: '#FFF',
+    margin: 5,
+    borderColor: '#6600CC',
     borderWidth: 1,
     borderRadius: 5,
     padding: 16,
-    backgroundColor: '#FFF',
-    shadowColor: '#FFFF00',
+    backgroundColor: '#6600CC',
+    shadowColor: '#000000',
     shadowOpacity: 0.4,
-    shadowRadius: 10,
+    shadowRadius: 5,
   },
 
   categoryText: {
-    color: '#6600CC',
+    color: '#FFF',
     fontWeight: '200',
-    fontSize: 24,
+    fontSize: 18,
     textAlign: 'left',
     letterSpacing: 1,
   },
 
   pressedContainer: {
-    borderColor: '#FFF',
+    borderColor: '#6600CC',
     backgroundColor: 'transparent'
   },
 
   pressedText: {
-    color: '#FFF',
+    color: '#6600CC',
     textDecorationLine: 'line-through',
-    textDecorationColor: '#FFF',
+    textDecorationColor: '#6600CC',
   },
 });
 

@@ -126,7 +126,7 @@ export default class HomeScreen extends React.Component {
                                 }]}>
             <TouchableOpacity
               style={styles.homeButton2}
-              onPress={() => navigation.navigate('Customization', {})}
+              onPress={() => navigation.navigate('Details', {})}
               activeOpacity={1}>
               <Text style={styles.homeButton2Text}>Customized Search</Text>
             </TouchableOpacity>

@@ -8,6 +8,7 @@ import CategoriesScreen from './app/screens/CategoriesScreen';
 import HomeScreen from './app/screens/HomeScreen';
 import ResultScreen from './app/screens/ResultScreen';
 import CustomizationScreen from './app/screens/CustomizationScreen';
+import DetailsScreen from './app/screens/DetailsScreen';
 import './ReactotronConfig';
 import Reactotron from 'reactotron-react-native'
 
@@ -16,6 +17,7 @@ const Navigator = StackNavigator({
   Customization: { screen: CustomizationScreen },
   Categories: { screen: CategoriesScreen },
   Result: { screen: ResultScreen },
+  Details: { screen: DetailsScreen },
 }, {headerMode: 'none'});
 
 const store = Reactotron.createStore(masterReducer, applyMiddleware(thunk))
