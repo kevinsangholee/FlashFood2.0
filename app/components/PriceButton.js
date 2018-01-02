@@ -22,7 +22,7 @@ class PriceButton extends Component {
           this.setState({pressed: !this.state.pressed})
           setPrice(value)
         }}
-        activeOpacity={1}
+        activeOpacity={0.5}
       >
         <Text
           style={[styles.categoryText, this.state.pressed && styles.pressedText]}

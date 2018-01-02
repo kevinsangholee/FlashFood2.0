@@ -100,7 +100,7 @@ export default class HomeScreen extends React.Component {
             <TouchableOpacity
               style={[styles.homeButton1]}
               onPress={() => navigation.navigate('Result', {})}
-              activeOpacity={1}>
+              activeOpacity={0.5}>
               <Text style={styles.homeButton1Text}>Flash ⚡ Food</Text>
             </TouchableOpacity>
           </Animated.View>
@@ -127,7 +127,7 @@ export default class HomeScreen extends React.Component {
             <TouchableOpacity
               style={styles.homeButton2}
               onPress={() => navigation.navigate('Details', {})}
-              activeOpacity={1}>
+              activeOpacity={0.5}>
               <Text style={styles.homeButton2Text}>Customized Search</Text>
             </TouchableOpacity>
           </Animated.View>

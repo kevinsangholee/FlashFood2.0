@@ -6,6 +6,8 @@ export default class ResultScreen extends Component {
 
   state = {
     resultAnim: new Animated.Value(0),
+    button1Anim: new Animated.Value(0),
+    button2Anim: new Animated.Value(0),
   }
 
   componentDidMount() {
@@ -15,8 +17,26 @@ export default class ResultScreen extends Component {
           this.state.resultAnim,
           {
             toValue: 1,
-            duration: 1000,
-            delay: 500,
+            duration: 700,
+            delay: 300
+          }
+        ),
+        Animated.timing(
+          this.state.button1Anim,
+          {
+            toValue: 1,
+            duration: 500,
+            delay: 800,
+            easing: Easing.elastic(1),
+          }
+        ),
+        Animated.timing(
+          this.state.button2Anim,
+          {
+            toValue: 1,
+            duration: 500,
+            delay: 700,
+            easing: Easing.elastic(1),
           }
         ),
       ]),
@@ -25,7 +45,7 @@ export default class ResultScreen extends Component {
 
   render() {
 
-    let { resultAnim } = this.state;
+    let { resultAnim, button1Anim, button2Anim } = this.state;
 
     return (
       <View style={styles.mainContainer}>
@@ -37,16 +57,36 @@ export default class ResultScreen extends Component {
                       }]}>
         </Animated.View>
         <View style={styles.buttonsContainer}>
-          <TouchableOpacity 
-            style={styles.resultButton1}
-            activeOpacity={0.9}>
-            <Text style={styles.resultButtonText1}>Save</Text>
-          </TouchableOpacity>
-          <TouchableOpacity 
-            style={styles.resultButton2}
-            activeOpacity={0.9}>
-            <Text style={styles.resultButtonText2}>Next</Text>
-          </TouchableOpacity>
+          <Animated.View style={[styles.resultbutton1Container, {
+                          opacity: button1Anim,
+                          transform: [{
+                            translateY: button1Anim.interpolate({
+                              inputRange: [0, 1],
+                              outputRange: [50, 0],
+                            }),
+                          }]
+                        }]}>
+            <TouchableOpacity 
+              style={styles.resultButton1}
+              activeOpacity={0.5}>
+              <Text style={styles.resultButtonText1}>&#9825;</Text>
+            </TouchableOpacity>
+          </Animated.View>
+          <Animated.View style={[styles.resultbutton2Container, {
+                          opacity: button2Anim,
+                          transform: [{
+                            translateY: button2Anim.interpolate({
+                              inputRange: [0, 1],
+                              outputRange: [50, 0],
+                            }),
+                          }]
+                        }]}>
+            <TouchableOpacity 
+              style={styles.resultButton2}
+              activeOpacity={0.5}>
+              <Text style={styles.resultButtonText2}>Next &rarr;</Text>
+            </TouchableOpacity>
+          </Animated.View>
         </View>
       </View>
     );
@@ -94,6 +134,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginLeft: -4,
     marginRight: -4,
+  },
+
+  resultbutton1Container: {
+    flex: 1,
+  },
+
+  resultbutton2Container: {
+    flex: 2,
   },
 
   resultButton1: {

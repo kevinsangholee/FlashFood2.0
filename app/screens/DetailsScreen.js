@@ -37,28 +37,35 @@ class DetailsScreen extends Component {
           this.state.popupAnim,
           {
             toValue: 0,
-            duration: 500,
+            duration: 300,
             easing: Easing.elastic(1),
           }
         ),
       ]),
     ]).start();
-    this.setState({popupActive: false})
+    setTimeout(() => {this.setState({popupActive: false})}, 300)
+    
   }
 
   render() {
 
-    const { togglePopup } = this.props
+    const { navigation, togglePopup, numCategories } = this.props
     let { popupAnim, popupActive } = this.state
 
     return (
       <View style={styles.mainContainer}>
         <View style={styles.scrollViewContainer1}>
           <ScrollView style={styles.scrollView1}>
+            <View style={{height: 40}}></View>
             {/*<View style={styles.headerContainer}>
               <Text style={styles.headerText}>Details</Text>
             </View>*/}
-            <View style={{height: 40}}></View>
+            <TouchableOpacity
+              style={[styles.backButton]}
+              onPress={() => navigation.navigate('Result', {})}
+              activeOpacity={0.5}>
+              <Text style={styles.backButtonText}>&larr; Home</Text>
+            </TouchableOpacity>
             <DistanceComponent />
             <PriceComponent />
             <View style={styles.detailsContainer}>
@@ -68,13 +75,19 @@ class DetailsScreen extends Component {
               <View style={styles.flexRow}>
                 <TouchableOpacity
                   activeOpacity={0.5}
-                  onPress={null}
+                  onPress={this.togglePopupOn}
                   style={styles.categoriesButton}>
-                  <Text style={styles.categoriesButtonText}>7 of 7 selected</Text>
+                  <Text style={styles.categoriesButtonText}>{numCategories} of 7 selected</Text>
                   <Text style={styles.categoriesButtonText}></Text>
                 </TouchableOpacity>
               </View>
             </View>
+            <TouchableOpacity
+              style={[styles.flashButton]}
+              onPress={() => navigation.navigate('Result', {})}
+              activeOpacity={0.5}>
+              <Text style={styles.flashButtonText}>Flash ⚡ Food</Text>
+            </TouchableOpacity>
             <View style={{height: 20}}></View>
           </ScrollView>
         </View>
@@ -83,7 +96,7 @@ class DetailsScreen extends Component {
                         transform: [{
                           translateY: popupAnim.interpolate({
                             inputRange: [0, 1],
-                            outputRange: [100, 0],
+                            outputRange: [150, 0],
                           }),
                         }],
                       }]}>            
@@ -91,7 +104,12 @@ class DetailsScreen extends Component {
             <View style={styles.detailsContainer2}>
               <View style={styles.detailsHeaderContainer2}>
                 <Text style={styles.detailsHeader}>Categories</Text>
-                <TouchableOpacity onPress={null}><Text style={styles.detailsHeader2}>&darr;</Text></TouchableOpacity>
+                <TouchableOpacity 
+                  onPress={this.togglePopupOff}
+                  style={styles.popupToggleOffButton}
+                >
+                  <Text style={styles.detailsHeader2}>&darr;</Text>
+                </TouchableOpacity>
               </View>
               <View style={styles.scrollViewContainer2Inner}>
                 <ScrollView style={styles.scrollViewContainer1}>
@@ -132,7 +150,8 @@ class DetailsScreen extends Component {
 const mapStateToProps = (state) => {
   return {
     distance: state.choices.distance,
-    priceNotSelected: state.choices.priceNotSelected
+    priceNotSelected: state.choices.priceNotSelected,
+    numCategories: state.choices.categories.length
   }
 }
 
@@ -195,9 +214,9 @@ const styles = StyleSheet.create({
   popupScreen: {
     flexDirection: 'row',
     position: 'absolute',
-    top: 0, 
+    top: 20, 
     left: 0,
-    bottom: 0,
+    bottom: 20,
     right: 0,
     overflow: 'hidden',
   },
@@ -253,10 +272,24 @@ const styles = StyleSheet.create({
   },
 
   detailsHeader2: {
-    fontWeight: '200',
-    fontSize: 22,
+    fontWeight: '300',
+    fontSize: 24,
+    height: 28,
     paddingBottom: 20,
     color: '#616161',
+    justifyContent: 'center',
+  },
+
+  popupToggleOffButton: {
+    height: 66, 
+    width: 66,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    position: 'absolute',
+    top: 0, 
+    right: 0,
+
   },
 
   flexRow: {
@@ -287,6 +320,43 @@ const styles = StyleSheet.create({
   categoryButtonRow: {
     flexDirection: 'row',
   },
+
+  backButton:  {
+    marginVertical: 20,
+    padding: 20,
+    backgroundColor: '#FFF',
+    borderRadius: 5,
+    shadowColor: '#CC0000',
+    shadowOpacity: 0.7,
+    shadowRadius: 20,
+  },
+
+  backButtonText: {
+    color: '#6600CC',
+    fontSize: 32,
+    fontWeight: '200',
+    letterSpacing: 1,
+    textAlign: 'center',
+  },
+
+  flashButton:  {
+    marginVertical: 20,
+    padding: 20,
+    backgroundColor: '#FFF',
+    borderRadius: 5,
+    shadowColor: '#00FF00',
+    shadowOpacity: 1,
+    shadowRadius: 20,
+  },
+
+  flashButtonText: {
+    color: '#6600CC',
+    fontSize: 32,
+    fontWeight: '200',
+    letterSpacing: 1,
+    textAlign: 'center',
+  },
+
 
 });
 
