@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, Button, TouchableOpacity, Slider, ScrollView, Animated, Easing, Alert } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity, ScrollView, Animated, Easing, Alert } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import { setDistance } from '../actions';
-import PriceButton from './../components/PriceButton';
 import CategoryButton from './../components/CategoryButton';
+import DistanceComponent from './../components/DistanceComponent';
+import PriceComponent from './../components/PriceComponent';
+
 
 class DetailsScreen extends Component {
 
@@ -47,7 +48,7 @@ class DetailsScreen extends Component {
 
   render() {
 
-    const { setDist, distance, priceNotSelected, togglePopup } = this.props
+    const { togglePopup } = this.props
     let { popupAnim, popupActive } = this.state
 
     return (
@@ -58,38 +59,8 @@ class DetailsScreen extends Component {
               <Text style={styles.headerText}>Details</Text>
             </View>*/}
             <View style={{height: 40}}></View>
-            <View style={styles.detailsContainer}>
-              <View style={styles.detailsHeaderContainer}>
-                <Text style={styles.detailsHeader}>Distance</Text>
-              </View>
-              <View style={styles.milesTextContainer}>
-                <Text style={styles.distanceText}>{distance}</Text>
-                <Text style={styles.milesText}> miles</Text>
-              </View>
-              <Slider
-                style={styles.slider} 
-                minimumValue={1}
-                maximumValue={10}
-                onValueChange={(value) => setDist(value)}
-                step={1}
-                value={10}
-                minimumTrackTintColor='#6600CC'
-              />
-            </View>
-            <View style={[styles.detailsContainer, priceNotSelected && styles.priceNotSelectedContainer]}>
-              <View style={styles.detailsHeaderContainer}>
-                <Text style={[styles.detailsHeader, priceNotSelected && styles.priceNotSelectedHeader]}>Price</Text>
-                { priceNotSelected && 
-                  <Text style={styles.priceNotSelected}>Please select a price</Text>
-                }
-              </View>
-              <View style={styles.priceButtonRow}>
-                <PriceButton value={1} noneSelected={priceNotSelected}>$</PriceButton>
-                <PriceButton value={2} noneSelected={priceNotSelected}>$$</PriceButton>
-                <PriceButton value={3} noneSelected={priceNotSelected}>$$$</PriceButton>
-                <PriceButton value={4} noneSelected={priceNotSelected}>$$$$</PriceButton>
-              </View>
-            </View>
+            <DistanceComponent />
+            <PriceComponent />
             <View style={styles.detailsContainer}>
               <View style={styles.detailsHeaderContainer}>
                 <Text style={styles.detailsHeader}>Categories</Text>
@@ -193,6 +164,34 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
 
+  detailsContainer: {
+    marginVertical: 6,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+    backgroundColor: '#FFF',
+    padding: 20,
+    shadowColor: '#FFFF00',
+    shadowOpacity: 0.4,
+    shadowRadius: 10,
+  },
+
+  detailsHeaderContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderBottomWidth: 1,
+    borderColor: '#eeeeee',
+    marginBottom: 20,
+  },
+
+  detailsHeader: {
+    flex: 1,
+    fontWeight: '200',
+    fontSize: 22,
+    paddingBottom: 20,
+    color: '#616161',
+  },
+
   popupScreen: {
     flexDirection: 'row',
     position: 'absolute',
@@ -229,18 +228,6 @@ const styles = StyleSheet.create({
     height: 140,
   },
 
-  detailsContainer: {
-    marginVertical: 6,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 5,
-    backgroundColor: '#FFF',
-    padding: 20,
-    shadowColor: '#FFFF00',
-    shadowOpacity: 0.4,
-    shadowRadius: 10,
-  },
-
   detailsContainer2: {
     marginVertical: 6,
     alignItems: 'center',
@@ -251,14 +238,6 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     flex: 1,
     overflow: 'hidden',
-  },
-
-  detailsHeaderContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    borderBottomWidth: 1,
-    borderColor: '#eeeeee',
-    marginBottom: 20,
   },
 
   detailsHeaderContainer2: {
@@ -273,60 +252,11 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
 
-  detailsHeader: {
-    flex: 1,
-    fontWeight: '200',
-    fontSize: 22,
-    paddingBottom: 20,
-    color: '#616161',
-  },
-
   detailsHeader2: {
     fontWeight: '200',
     fontSize: 22,
     paddingBottom: 20,
     color: '#616161',
-  },
-
-  priceButtonRow: {
-    flexDirection: 'row',
-  },
-
-  milesTextContainer: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-  },
-
-  slider: {
-    width: 300,
-  },
-
-  distanceText: {
-    fontSize: 48,
-    fontWeight: '200',
-  },
-
-  milesText: {
-    fontSize: 32,
-    lineHeight: 48,
-    fontWeight: '200',
-  },
-
-  priceNotSelected: {
-    marginTop: 6,
-    color: 'red',
-    fontSize: 13,
-  },
-
-  priceNotSelectedHeader: {
-    color: 'red'
-  },
-
-  priceNotSelectedContainer: {
-    shadowColor: 'red',
-    shadowOpacity: 0.9,
-    shadowRadius: 10,
-    backgroundColor: '#FFF2F1'
   },
 
   flexRow: {
