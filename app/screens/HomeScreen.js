@@ -300,6 +300,10 @@ const styles = StyleSheet.create({
     height: 0,
   },
 
+  popupBackground: {
+    position: 'absolute'
+  },
+
   popupContainer: {
     flex: 1,
     padding: 20,

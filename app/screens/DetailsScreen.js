@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, Button, TouchableOpacity, ScrollView, Animated, Easing, Alert } from 'react-native';
 import { StackNavigator, NavigationActions } from 'react-navigation';
+import { getRestaurants } from '../actions';
 import CategoryButton from './../components/CategoryButton';
 import DistanceComponent from './../components/DistanceComponent';
 import PriceComponent from './../components/PriceComponent';
+import Reactotron from 'reactotron-react-native'
 
 
 class DetailsScreen extends Component {
@@ -49,7 +51,7 @@ class DetailsScreen extends Component {
 
   render() {
 
-    const { navigation, togglePopup, numCategories } = this.props
+    const { navigation, togglePopup, numCategories, getRestaurants } = this.props
     let { popupAnim, popupActive } = this.state
 
     return (
@@ -84,7 +86,11 @@ class DetailsScreen extends Component {
             </View>
             <TouchableOpacity
               style={[styles.flashButton]}
-              onPress={() => navigation.navigate('Result', {})}
+              onPress={() => {
+                  getRestaurants()
+                  navigation.navigate('Result', {})
+                }
+              }
               activeOpacity={0.5}>
               <Text style={styles.flashButtonText}>Flash ⚡ Food</Text>
             </TouchableOpacity>
@@ -159,6 +165,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setDist: (distance) => {
       dispatch(setDistance(distance))
+    },
+    getRestaurants: () => {
+      dispatch(getRestaurants())
     }
   }
 }

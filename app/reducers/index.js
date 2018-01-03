@@ -10,14 +10,16 @@ let initialChoices = {
 	priceNotSelected: false,
 };
 
+let initialResults = {
+	restaurants: [],
+}
+
 // Reducer for choices
 const choices = (state = initialChoices, action) => {
 	switch (action.type) {
 		case SET_CATEGORIES:
-			Reactotron.log(action.category)
 			let newCategories = state.categories
 			let idx = newCategories.indexOf(action.category)
-			Reactotron.log(newCategories)
 			if(idx === -1) {
 				newCategories.push(action.category)
 			} else {
@@ -58,8 +60,20 @@ const choices = (state = initialChoices, action) => {
 	}
 }
 
+const results = (state = initialResults, action) => {
+	switch (action.type) {
+		case GET_RESTAURANTS:
+			return {
+				...state,
+				restaurants: action.restaurants
+			}
+			default:
+				return state
+	}
+}
+
 const rootReducer = combineReducers({
-	choices
+	choices, results
 })
 
 export default rootReducer
