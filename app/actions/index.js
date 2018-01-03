@@ -55,12 +55,14 @@ export function getRestaurants() {
 			longitude: encodeURIComponent(-117.6844680),
 			categories: encodeURIComponent(getState().choices.categories.map(cat => restaurantToQuery[cat]).join(',')),
 		}
-		fetch('https://api.yelp.com/v3/businesses/search?term=restaurants&price=' + params.price + 
+		var url = 'https://api.yelp.com/v3/businesses/search?term=restaurants&price=' + params.price + 
 			'&radius=' + params.radius + 
 			'&latitude=' + params.latitude + 
 			'&longitude=' + params.longitude + 
-			'&categories' + params.categories + 
-			'&open_now=true&limit=50&sort_by=distance', {
+			'&categories=' + params.categories + 
+			'&open_now=true&limit=50&sort_by=distance'
+		Reactotron.log(url)
+		fetch(url, {
 			method: 'GET',
 			headers: {
 				Accept: 'application/json',

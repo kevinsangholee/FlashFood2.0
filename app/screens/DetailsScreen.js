@@ -125,22 +125,31 @@ class DetailsScreen extends Component {
                       <CategoryButton>American</CategoryButton>
                     </View>
                     <View style={styles.categoryButtonRow}>
-                      <CategoryButton>Brazilian</CategoryButton>
+                      <CategoryButton>Asian</CategoryButton>
                     </View>
                     <View style={styles.categoryButtonRow}>
-                      <CategoryButton>Cambodian</CategoryButton>
+                      <CategoryButton>Buffet</CategoryButton>
                     </View>
                     <View style={styles.categoryButtonRow}>
-                      <CategoryButton>Dutch</CategoryButton>
+                      <CategoryButton>Chinese</CategoryButton>
                     </View>
                     <View style={styles.categoryButtonRow}>
-                      <CategoryButton>European</CategoryButton>
+                      <CategoryButton>Fast Food</CategoryButton>
                     </View>
                     <View style={styles.categoryButtonRow}>
-                      <CategoryButton>French</CategoryButton>
+                      <CategoryButton>Japanese</CategoryButton>
                     </View>
                     <View style={styles.categoryButtonRow}>
-                      <CategoryButton>Greek</CategoryButton>
+                      <CategoryButton>Mediterranean</CategoryButton>
+                    </View>
+                    <View style={styles.categoryButtonRow}>
+                      <CategoryButton>Mexican</CategoryButton>
+                    </View>
+                    <View style={styles.categoryButtonRow}>
+                      <CategoryButton>Vegetarian</CategoryButton>
+                    </View>
+                    <View style={styles.categoryButtonRow}>
+                      <CategoryButton>Pizza</CategoryButton>
                     </View>
                   </View>
                 </ScrollView>

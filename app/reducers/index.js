@@ -4,13 +4,14 @@ import Reactotron from 'reactotron-react-native'
 
 // Intial state for choices
 let initialChoices = { 
-	categories: ['American', 'Brazilian', 'Cambodian', 'Dutch', 'European', 'French', 'Greek'],
+	categories: ['American', 'Asian', 'Buffet', 'Chinese', 'Fast Food', 'Japanese', 'Mediterranean', 'Mexican', 'Vegetarian', 'Pizza'],
 	distance: 10, 
 	price: [1, 2, 3, 4] ,
 	priceNotSelected: false,
 };
 
 let initialResults = {
+	finishedLoading: false,
 	restaurants: [],
 }
 
@@ -65,7 +66,8 @@ const results = (state = initialResults, action) => {
 		case GET_RESTAURANTS:
 			return {
 				...state,
-				restaurants: action.restaurants
+				restaurants: action.restaurants,
+				finishedLoading: true
 			}
 			default:
 				return state
