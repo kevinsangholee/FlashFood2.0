@@ -23,7 +23,6 @@ const Navigator = StackNavigator({
 const store = Reactotron.createStore(masterReducer, applyMiddleware(thunk))
 
 class App extends React.Component {
-
 	render() {
 		return(
 			<Provider store={store}>

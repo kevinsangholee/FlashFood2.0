@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity, StatusBar, Animated, Easing } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity, StatusBar, Animated, Easing, Alert } from 'react-native';
 
 export default class HomeScreen extends React.Component {
 
   state = {
     headerAnim: new Animated.Value(0),
     button1Anim1: new Animated.Value(0),
-    orTextAnim: new Animated.Value(0),
     button2Anim: new Animated.Value(0),
+    button3Anim: new Animated.Value(0),
     button1Anim2: new Animated.Value(0),
+    infoPopupAnim: new Animated.Value(0),
+    popupActive: false,
   }
 
   componentDidMount() {
@@ -32,7 +34,7 @@ export default class HomeScreen extends React.Component {
           }
         ),
         Animated.timing(
-          this.state.orTextAnim,
+          this.state.button2Anim,
           {
             toValue: 1,
             duration: 700,
@@ -41,7 +43,7 @@ export default class HomeScreen extends React.Component {
           }
         ),
         Animated.timing(
-          this.state.button2Anim,
+          this.state.button3Anim,
           {
             toValue: 1,
             duration: 700,
@@ -61,10 +63,31 @@ export default class HomeScreen extends React.Component {
     ]).start();
   }
 
+  togglePopupOn = () => {
+    this.setState({popupActive: true})
+    Animated.sequence([
+      Animated.parallel([
+        Animated.timing(
+          this.state.infoPopupAnim,
+          {
+            toValue: 1,
+            duration: 200,
+          }
+        ),
+      ]),
+    ]).start();
+  }
+
   render() {
 
     const { navigation } = this.props;
-    let { headerAnim, button1Anim1, orTextAnim, button2Anim, button1Anim2 } = this.state;
+    let 
+    { 
+      // Animations
+      headerAnim, button1Anim1, button2Anim, button3Anim, button1Anim2, infoPopupAnim,
+      // Other
+      popupActive,
+    } = this.state;
 
     return (
       <View style={styles.mainContainer}>
@@ -99,22 +122,11 @@ export default class HomeScreen extends React.Component {
                                 }]}>
             <TouchableOpacity
               style={[styles.homeButton1]}
-              onPress={() => navigation.navigate('Result', {})}
+              onPress={() => navigation.navigate('Details', {})}
               activeOpacity={0.5}>
               <Text style={styles.homeButton1Text}>Flash ⚡ Food</Text>
             </TouchableOpacity>
           </Animated.View>
-          <Animated.Text style={[styles.orText, {
-                          opacity: orTextAnim,
-                          transform: [{
-                            translateY: orTextAnim.interpolate({
-                              inputRange: [0, 1],
-                              outputRange: [90, 0],
-                            }),
-                          }],
-                        }]}>
-            OR
-          </Animated.Text>
           <Animated.View style={[styles.buttonContainer, {
                                   opacity: button2Anim,
                                   transform: [{
@@ -126,12 +138,41 @@ export default class HomeScreen extends React.Component {
                                 }]}>
             <TouchableOpacity
               style={styles.homeButton2}
-              onPress={() => navigation.navigate('Details', {})}
+              //onPress={() => navigation.navigate('Details', {})}
               activeOpacity={0.5}>
-              <Text style={styles.homeButton2Text}>Customized Search</Text>
+              <Text style={styles.homeButton2Text}>Past Restaurants</Text>
+            </TouchableOpacity>
+          </Animated.View>
+          <Animated.View style={[styles.buttonContainer, {
+                                  opacity: button3Anim.interpolate({
+                                      inputRange: [0, 1],
+                                      outputRange: [0, 0.8],
+                                    }),
+                                  transform: [{
+                                    translateY: button3Anim.interpolate({
+                                      inputRange: [0, 1],
+                                      outputRange: [100, 0],
+                                    }),
+                                  }],
+                                }]}>
+            <TouchableOpacity
+              style={styles.homeButton3}
+              onPress={this.togglePopupOn}
+              activeOpacity={0.5}>
+              <Text style={styles.homeButton3Text}>What is this?</Text>
             </TouchableOpacity>
           </Animated.View>
         </View>
+
+        <Animated.View style={[styles.popupScreen, !this.state.popupActive && styles.heightZero, 
+                              {
+                                opacity: infoPopupAnim,
+                              }]}>
+          <View style={styles.popupContainer}>
+            <View style={styles.detailsContainer2}>
+            </View>
+          </View>
+        </Animated.View>
       </View>
     );
   }
@@ -207,9 +248,9 @@ const styles = StyleSheet.create({
     flex: 1,
     marginRight: 40,
     marginLeft: 40,
-    marginTop: 14,
+    marginTop: 70,
     padding: 20,
-    backgroundColor: '#6600CC',
+    backgroundColor: 'transparent',
     borderWidth: 1,
     borderColor: '#FFF',
     borderRadius: 5,
@@ -221,6 +262,59 @@ const styles = StyleSheet.create({
     fontWeight: '200',
     letterSpacing: 1,
     textAlign: 'center',
+  },
+
+  homeButton3:  {
+    flex: 1,
+    marginRight: 40,
+    marginLeft: 40,
+    marginTop: 20,
+    padding: 10,
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: '#FFF',
+    borderRadius: 5,
+  },
+
+  homeButton3Text: {
+    color: '#FFF',
+    fontSize: 24,
+    fontWeight: '200',
+    letterSpacing: 1,
+    textAlign: 'center',
+  },
+
+  popupScreen: {
+    flexDirection: 'row',
+    position: 'absolute',
+    top: 0, 
+    left: 0,
+    bottom: 0,
+    right: 0,
+    overflow: 'hidden',
+    backgroundColor: '#6600CC',
+    paddingVertical: 20,
+  },
+
+  heightZero: {
+    height: 0,
+  },
+
+  popupContainer: {
+    flex: 1,
+    padding: 20,
+  },
+
+  detailsContainer2: {
+    marginVertical: 6,
+    alignItems: 'center',
+    borderRadius: 5,
+    backgroundColor: '#FFF',
+    shadowColor: '#FFFF00',
+    shadowOpacity: 0.4,
+    shadowRadius: 10,
+    flex: 1,
+    overflow: 'hidden',
   },
 
 });

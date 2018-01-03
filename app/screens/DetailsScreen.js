@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, Button, TouchableOpacity, ScrollView, Animated, Easing, Alert } from 'react-native';
-import { StackNavigator } from 'react-navigation';
+import { StackNavigator, NavigationActions } from 'react-navigation';
 import CategoryButton from './../components/CategoryButton';
 import DistanceComponent from './../components/DistanceComponent';
 import PriceComponent from './../components/PriceComponent';
@@ -62,7 +62,7 @@ class DetailsScreen extends Component {
             </View>*/}
             <TouchableOpacity
               style={[styles.backButton]}
-              onPress={() => navigation.navigate('Result', {})}
+              onPress={() => this.props.navigation.dispatch(NavigationActions.back())}
               activeOpacity={0.5}>
               <Text style={styles.backButtonText}>&larr; Home</Text>
             </TouchableOpacity>
@@ -214,11 +214,13 @@ const styles = StyleSheet.create({
   popupScreen: {
     flexDirection: 'row',
     position: 'absolute',
-    top: 20, 
+    top: 0, 
     left: 0,
-    bottom: 20,
+    bottom: 0,
     right: 0,
     overflow: 'hidden',
+    backgroundColor: '#6600CC',
+    paddingVertical: 20,
   },
 
   heightZero: {
