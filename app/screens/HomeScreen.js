@@ -66,16 +66,29 @@ export default class HomeScreen extends React.Component {
   togglePopupOn = () => {
     this.setState({popupActive: true})
     Animated.sequence([
-      Animated.parallel([
-        Animated.timing(
-          this.state.infoPopupAnim,
-          {
-            toValue: 1,
-            duration: 200,
-          }
-        ),
-      ]),
+      Animated.timing(
+        this.state.infoPopupAnim,
+        {
+          toValue: 1,
+          duration: 500,
+          easing: Easing.elastic(1),
+        }
+      ),
     ]).start();
+  }
+
+  togglePopupOff = () => {
+    Animated.sequence([
+      Animated.timing(
+        this.state.infoPopupAnim,
+        {
+          toValue: 0,
+          duration: 300,
+          easing: Easing.elastic(1),
+        }
+      ),
+    ]).start();
+    setTimeout(() => {this.setState({popupActive: false})}, 300) 
   }
 
   render() {
@@ -167,9 +180,32 @@ export default class HomeScreen extends React.Component {
         <Animated.View style={[styles.popupScreen, !this.state.popupActive && styles.heightZero, 
                               {
                                 opacity: infoPopupAnim,
+                                transform: [{
+                                  translateY: infoPopupAnim.interpolate({
+                                    inputRange: [0, 1],
+                                    outputRange: [100, 0],
+                                  })
+                                }],
                               }]}>
           <View style={styles.popupContainer}>
             <View style={styles.detailsContainer2}>
+              <View style={styles.detailsHeaderContainer2}>
+                <Text style={styles.detailsHeader}>Welcome!</Text>
+                <TouchableOpacity 
+                  onPress={this.togglePopupOff}
+                  style={styles.popupToggleOffButton}
+                >
+                  <Text style={styles.popuptoggleOffButtonText}>&darr;</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.infoContainer}>
+                <Text style={styles.infoText1}>Flash Food decides{"\n"}<Text style={{fontWeight: '300', color: '#6600CC',}}>where to eat</Text>.</Text>
+                <View style={styles.infoDivider}></View>
+                <Text style={styles.infoText2}><Text style={{fontWeight: '300'}}>You tell us:</Text>{"\n"}Distance, Price, Categories</Text>
+                <View style={styles.infoDivider}></View>
+                <Text style={styles.infoText2}><Text style={{fontWeight: '300'}}>We tell you:</Text>{"\n"}A random restaurant</Text>
+                <View style={styles.infoDivider}></View>
+              </View>
             </View>
           </View>
         </Animated.View>
@@ -209,7 +245,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     letterSpacing: 1,
     opacity: 0.8,
-    backgroundColor: 'transparent',
   },
 
   buttonsContainer: {
@@ -250,7 +285,6 @@ const styles = StyleSheet.create({
     marginLeft: 40,
     marginTop: 70,
     padding: 20,
-    backgroundColor: 'transparent',
     borderWidth: 1,
     borderColor: '#FFF',
     borderRadius: 5,
@@ -270,7 +304,6 @@ const styles = StyleSheet.create({
     marginLeft: 40,
     marginTop: 20,
     padding: 10,
-    backgroundColor: 'transparent',
     borderWidth: 1,
     borderColor: '#FFF',
     borderRadius: 5,
@@ -287,13 +320,11 @@ const styles = StyleSheet.create({
   popupScreen: {
     flexDirection: 'row',
     position: 'absolute',
-    top: 0, 
+    top: 30, 
     left: 0,
-    bottom: 0,
+    bottom: -30,
     right: 0,
     overflow: 'hidden',
-    backgroundColor: '#6600CC',
-    paddingVertical: 20,
   },
 
   heightZero: {
@@ -301,7 +332,13 @@ const styles = StyleSheet.create({
   },
 
   popupBackground: {
-    position: 'absolute'
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    backgroundColor: '#000000',
+    opacity: 0.9,
   },
 
   popupContainer: {
@@ -313,12 +350,97 @@ const styles = StyleSheet.create({
     marginVertical: 6,
     alignItems: 'center',
     borderRadius: 5,
-    backgroundColor: '#FFF',
     shadowColor: '#FFFF00',
     shadowOpacity: 0.4,
     shadowRadius: 10,
     flex: 1,
     overflow: 'hidden',
+    backgroundColor: '#FFF',
+  },
+
+  detailsHeaderContainer2: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderBottomWidth: 1,
+    borderColor: '#eeeeee',
+    shadowColor: '#000000',
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    paddingHorizontal: 20,
+    paddingTop: 20,
+  },
+
+  detailsHeader: {
+    flex: 1,
+    fontWeight: '200',
+    fontSize: 22,
+    paddingBottom: 20,
+    color: '#616161',
+  },
+
+  popupToggleOffButton: {
+    height: 66, 
+    width: 66,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    position: 'absolute',
+    top: 0, 
+    right: 0,
+  },
+
+  popuptoggleOffButtonText: {
+    fontWeight: '300',
+    fontSize: 24,
+    height: 28,
+    paddingBottom: 20,
+    color: '#616161',
+    justifyContent: 'center',
+  },
+
+  infoContainer: {
+    paddingVertical: 10,
+  },
+
+  infoText1: {
+    fontWeight: '200',
+    fontSize: 28,
+    textAlign: 'left',
+    marginHorizontal: 10,
+    marginVertical: 30,
+  },
+
+  infoText2: {
+    fontWeight: '200',
+    fontSize: 22,
+    textAlign: 'left',
+    marginHorizontal: 10,
+    marginVertical: 40,
+  },
+
+  infoDivider: {
+    borderBottomWidth: 1,
+    borderColor: '#eeeeee',
+  },
+
+  homeButton4:  {
+    flex: 1,
+    marginTop: 30,
+    padding: 20,
+    backgroundColor: '#6600CC',
+    borderRadius: 5,
+    shadowOffset: { width: 1, height: 1 },
+    shadowRadius: 10,
+    shadowOpacity: 0.5,
+    shadowColor: '#000000',
+  },
+
+  homeButton4Text: {
+    color: '#FFF',
+    fontSize: 32,
+    fontWeight: '200',
+    letterSpacing: 1,
+    textAlign: 'center',
   },
 
 });
