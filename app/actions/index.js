@@ -98,7 +98,7 @@ export function getResultInfo(json, userLat, userLong) {
 			method: 'GET',
 			headers: {
 				Accept: 'application/json',
-				Authorization: ACCESS_KEY,
+				Authorization: YELP_ACCESS_KEY,
 			},
 		}).then((response) => response.json())
 		.then((responseJson) => {

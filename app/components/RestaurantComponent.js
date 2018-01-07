@@ -48,7 +48,7 @@ class RestaurantComponent extends Component {
 
 	render() {
 
-		const { currentRestaurant } = this.props
+		const { currentRestaurant, distance } = this.props
 		let { restaurantAnim1, restaurantAnim2, restaurantAnim3 } = this.state;
 		const categories = currentRestaurant.categories.map((item) => item.title)
 
@@ -97,6 +97,7 @@ class RestaurantComponent extends Component {
 const mapStateToProps = (state) => {
 	return {
 		currentRestaurant: state.results.currentRestaurant,
+		distance: state.results.distance,
 	}
 }
 
