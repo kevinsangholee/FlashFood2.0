@@ -105,7 +105,7 @@ class RestaurantComponent extends Component {
 		]).start();
 	}
 
-	restaurantReset() {
+	restaurantReset = () => {
 		Alert.alert('hi');
 		this.restaurantDisappear().then(this.restaurantAppear());
 	}
@@ -230,4 +230,4 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default connect(mapStateToProps, null)(RestaurantComponent)
+export default connect(mapStateToProps, null, null, {withRef: true})(RestaurantComponent)
