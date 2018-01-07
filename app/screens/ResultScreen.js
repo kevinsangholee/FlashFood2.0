@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity, Animated, Easing } from 'react-native';
+import { connect } from 'react-redux';
+import { StyleSheet, Text, View, Button, TouchableOpacity, ActivityIndicator, Animated, Easing } from 'react-native';
 import { StackNavigator } from 'react-navigation';
+import RestaurantComponent from '../components/RestaurantComponent'
 
-export default class ResultScreen extends Component {
+class ResultScreen extends Component {
 
   state = {
     resultAnim: new Animated.Value(0),
@@ -55,7 +57,9 @@ export default class ResultScreen extends Component {
 
   render() {
 
+    const { finishedLoading } = this.props
     let { resultAnim, button1Anim, button2Anim, button3Anim } = this.state;
+
 
     return (
       <View style={styles.mainContainer}>
@@ -65,6 +69,7 @@ export default class ResultScreen extends Component {
                           outputRange: [0, 0.3],
                         }),
                       }]}>
+          { !finishedLoading ? <ActivityIndicator size="large" color='#6600CC'/> : <RestaurantComponent/>}
         </Animated.View>
         <View style={styles.buttonsContainer}>
           <Animated.View style={[styles.resultbutton1Container, {
@@ -119,6 +124,13 @@ export default class ResultScreen extends Component {
 
 }
 
+const mapStateToProps = (state) => {
+  return {
+    finishedLoading: state.results.finishedLoading,
+    currentRestaurant: state.results.currentRestaurant,
+  }
+}
+
 const styles = StyleSheet.create({
 
   mainContainer: {
@@ -144,6 +156,7 @@ const styles = StyleSheet.create({
 	resultContainer: {
     flex: 8.5,
     justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: '#FFF',
     shadowOffset: { height: 2 },
     shadowColor: '#000',
@@ -212,3 +225,5 @@ const styles = StyleSheet.create({
   },
 
 });
+
+export default connect(mapStateToProps, null)(ResultScreen)

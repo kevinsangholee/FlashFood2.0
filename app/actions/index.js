@@ -61,7 +61,6 @@ export function getRestaurants() {
 			'&longitude=' + params.longitude + 
 			'&categories=' + params.categories + 
 			'&open_now=true&limit=50&sort_by=distance'
-		Reactotron.log(url)
 		fetch(url, {
 			method: 'GET',
 			headers: {
@@ -70,16 +69,18 @@ export function getRestaurants() {
 			},
 		}).then((response) => response.json())
 		.then((responseJson) => {
-			Reactotron.log("returned")
-			Reactotron.log(responseJson)
-			return {
-				type: GET_RESTAURANTS,
-				restaurants: ['GOT'],
-			}
+			dispatch(returnRestaurants(responseJson))
 		})
 		.catch((error) => {
 			Reactotron.log("error")
 			console.log(error)
 		})
+	}
+}
+
+export function returnRestaurants(json) {
+	return {
+		type: GET_RESTAURANTS,
+		restaurants: json['businesses'],
 	}
 }

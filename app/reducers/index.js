@@ -15,6 +15,12 @@ let initialResults = {
 	restaurants: [],
 }
 
+let allRestaurants = []
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
 // Reducer for choices
 const choices = (state = initialChoices, action) => {
 	switch (action.type) {
@@ -64,13 +70,16 @@ const choices = (state = initialChoices, action) => {
 const results = (state = initialResults, action) => {
 	switch (action.type) {
 		case GET_RESTAURANTS:
+			allRestaurants = action.restaurants
+			let current = allRestaurants[getRandomInt(allRestaurants.length)]
 			return {
 				...state,
 				restaurants: action.restaurants,
+				currentRestaurant: allRestaurants[getRandomInt(allRestaurants.length)],
 				finishedLoading: true
 			}
-			default:
-				return state
+		default:
+			return state
 	}
 }
 
