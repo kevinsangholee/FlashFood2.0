@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { SET_CATEGORIES, SET_DISTANCE, SET_PRICE, GET_RESTAURANTS } from '../actions/'
+import { SET_CATEGORIES, SET_DISTANCE, SET_PRICE, GET_RESTAURANTS, GET_DISTANCE } from '../actions/'
 import Reactotron from 'reactotron-react-native'
 
 // Intial state for choices
@@ -13,13 +13,11 @@ let initialChoices = {
 let initialResults = {
 	finishedLoading: false,
 	restaurants: [],
+	currentRestaurant: {},
+	distance: '0 mi',
 }
 
 let allRestaurants = []
-
-function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
-}
 
 // Reducer for choices
 const choices = (state = initialChoices, action) => {
@@ -71,12 +69,12 @@ const results = (state = initialResults, action) => {
 	switch (action.type) {
 		case GET_RESTAURANTS:
 			allRestaurants = action.restaurants
-			let current = allRestaurants[getRandomInt(allRestaurants.length)]
 			return {
 				...state,
-				restaurants: action.restaurants,
-				currentRestaurant: allRestaurants[getRandomInt(allRestaurants.length)],
-				finishedLoading: true
+				finishedLoading: true,
+				restaurants: allRestaurants,
+				currentRestaurant: action.currentRestaurant,
+				distance: action.distance,
 			}
 		default:
 			return state

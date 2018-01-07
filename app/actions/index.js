@@ -30,7 +30,8 @@ const restaurantToQuery = {
     Vietnamese: "vietnamese"
 }
 
-const ACCESS_KEY = "Bearer sRYZ4x-ye8lzI6xgkD8AwHRiRt-o_Jvv5hbSMdccmZh9qZiTksCm6TzkzR4ztBIUBEc9f1vEzY5O0dw-tWkEH6tYn353THhZ3IwsSFNAvOB4Ns20Bs3fq5J9CCeRWXYx"
+const YELP_ACCESS_KEY = "Bearer sRYZ4x-ye8lzI6xgkD8AwHRiRt-o_Jvv5hbSMdccmZh9qZiTksCm6TzkzR4ztBIUBEc9f1vEzY5O0dw-tWkEH6tYn353THhZ3IwsSFNAvOB4Ns20Bs3fq5J9CCeRWXYx"
+const GOOGLE_API_KEY = "AIzaSyDywrj172fK8KFZN9_LnoMUkltrAZO9wF8"
 const mileToMeter = 1609
 
 export function setCategories(category) {
@@ -47,29 +48,59 @@ export function setPrice(price) {
 
 export function getRestaurants() {
 	return function(dispatch, getState) {
-		Reactotron.log("starting func")
-		var params = {
-			price: encodeURIComponent(getState().choices.price),
-			radius: encodeURIComponent(getState().choices.distance * mileToMeter),
-			latitude: encodeURIComponent(33.675368),
-			longitude: encodeURIComponent(-117.6844680),
-			categories: encodeURIComponent(getState().choices.categories.map(cat => restaurantToQuery[cat]).join(',')),
-		}
-		var url = 'https://api.yelp.com/v3/businesses/search?term=restaurants&price=' + params.price + 
-			'&radius=' + params.radius + 
-			'&latitude=' + params.latitude + 
-			'&longitude=' + params.longitude + 
-			'&categories=' + params.categories + 
-			'&open_now=true&limit=50&sort_by=distance'
+		navigator.geolocation.getCurrentPosition((position) => {
+			var params = {
+				price: encodeURIComponent(getState().choices.price),
+				radius: encodeURIComponent(getState().choices.distance * mileToMeter),
+				latitude: encodeURIComponent(position.coords.latitude),
+				longitude: encodeURIComponent(position.coords.longitude),
+				categories: encodeURIComponent(getState().choices.categories.map(cat => restaurantToQuery[cat]).join(',')),
+			}
+			var url = 'https://api.yelp.com/v3/businesses/search?term=restaurants&price=' + params.price + 
+				'&radius=' + params.radius + 
+				'&latitude=' + params.latitude + 
+				'&longitude=' + params.longitude + 
+				'&categories=' + params.categories + 
+				'&open_now=true&limit=50&sort_by=distance'
+			fetch(url, {
+				method: 'GET',
+				headers: {
+					Accept: 'application/json',
+					Authorization: YELP_ACCESS_KEY,
+				},
+			}).then((response) => response.json())
+			.then((responseJson) => {
+				dispatch(getResultInfo(responseJson, position.coords.latitude, position.coords.longitude))
+			})
+			.catch((error) => {
+				Reactotron.log("error")
+				console.log(error)
+			})
+		})
+	}
+}
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+export function getResultInfo(json, userLat, userLong) {
+	let restaurants = json['businesses']
+	let currentRestaurant = restaurants[getRandomInt(restaurants.length)]
+
+	return function(dispatch, getState) {
+		var url = 'https://maps.googleapis.com/maps/api/directions/json?origin=' +
+			userLat + ',' + userLong +
+			'&destination=' + currentRestaurant['coordinates']['latitude'] + ','
+			+ currentRestaurant['coordinates']['longitude'] +
+			'&key=' + GOOGLE_API_KEY
 		fetch(url, {
-			method: 'G T',
-			headers: {
-				Accept: 'application/json',
-				Authorization: ACCESS_KEY,
-			},
+			method: 'GET',
 		}).then((response) => response.json())
 		.then((responseJson) => {
-			dispatch(returnRestaurants(responseJson))
+			Reactotron.log(responseJson)
+			dispatch(returnResults(restaurants, currentRestaurant,
+				responseJson['routes'][0]['legs'][0]['distance']['text']))
 		})
 		.catch((error) => {
 			Reactotron.log("error")
@@ -78,9 +109,11 @@ export function getRestaurants() {
 	}
 }
 
-export function returnRestaurants(json) {
+export function returnResults(restaurantList, currentRestaurant, distance) {
 	return {
 		type: GET_RESTAURANTS,
-		restaurants: json['businesses'],
+		restaurants: restaurantList,
+		currentRestaurant: currentRestaurant,
+		distance: distance,
 	}
 }
