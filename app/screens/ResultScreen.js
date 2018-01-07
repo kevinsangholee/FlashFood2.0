@@ -13,7 +13,7 @@ class ResultScreen extends Component {
     button3Anim: new Animated.Value(0),
   }
 
-  componentDidMount() {
+  resultAnimation = () => {
     Animated.sequence([
       Animated.parallel([
         Animated.timing(
@@ -21,7 +21,7 @@ class ResultScreen extends Component {
           {
             toValue: 1,
             duration: 700,
-            delay: 300
+            delay: 300,
           }
         ),
         Animated.timing(
@@ -29,7 +29,7 @@ class ResultScreen extends Component {
           {
             toValue: 1,
             duration: 500,
-            delay: 900,
+            delay: 200,
             easing: Easing.elastic(1),
           }
         ),
@@ -38,7 +38,7 @@ class ResultScreen extends Component {
           {
             toValue: 1,
             duration: 500,
-            delay: 800,
+            delay: 100,
             easing: Easing.elastic(1),
           }
         ),
@@ -47,7 +47,7 @@ class ResultScreen extends Component {
           {
             toValue: 1,
             duration: 500,
-            delay: 700,
+            delay: 0,
             easing: Easing.elastic(1),
           }
         ),
@@ -57,7 +57,7 @@ class ResultScreen extends Component {
 
   render() {
 
-    const { finishedLoading } = this.props
+    const { finishedLoading, resultAnimation } = this.props
     let { resultAnim, button1Anim, button2Anim, button3Anim } = this.state;
 
 
@@ -66,9 +66,10 @@ class ResultScreen extends Component {
         <Animated.View style={[styles.resultContainer, {
                         shadowOpacity: resultAnim.interpolate({
                           inputRange: [0, 1],
-                          outputRange: [0, 0.3],
+                          outputRange: [0, 0.2],
                         }),
                       }]}>
+          { finishedLoading && this.resultAnimation() }
           { !finishedLoading ? <ActivityIndicator size="large" color='#6600CC'/> : <RestaurantComponent/>}
         </Animated.View>
         <View style={styles.buttonsContainer}>
@@ -87,7 +88,7 @@ class ResultScreen extends Component {
               <Text style={styles.resultButtonText1}>&#9881;</Text>
             </TouchableOpacity>
           </Animated.View>
-           <Animated.View style={[styles.resultbutton1Container, {
+          {/*<Animated.View style={[styles.resultbutton1Container, {
                           opacity: button2Anim,
                           transform: [{
                             translateY: button2Anim.interpolate({
@@ -101,11 +102,11 @@ class ResultScreen extends Component {
               activeOpacity={0.5}>
               <Text style={styles.resultButtonText1}>&#9825;</Text>
             </TouchableOpacity>
-          </Animated.View>
+          </Animated.View>*/}
           <Animated.View style={[styles.resultbutton2Container, {
-                          opacity: button3Anim,
+                          opacity: button2Anim,
                           transform: [{
-                            translateY: button3Anim.interpolate({
+                            translateY: button2Anim.interpolate({
                               inputRange: [0, 1],
                               outputRange: [50, 0],
                             }),
@@ -160,8 +161,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     shadowOffset: { height: 2 },
     shadowColor: '#000',
-    shadowOpacity: 0.2,
-    shadowRadius: 10,
+    shadowRadius: 5,
     borderRadius: 5,
   },
 
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
   },
 
   resultbutton2Container: {
-    flex: 2,
+    flex: 3,
   },
 
   resultButton1: {

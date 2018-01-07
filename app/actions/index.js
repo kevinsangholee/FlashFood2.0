@@ -96,6 +96,10 @@ export function getResultInfo(json, userLat, userLong) {
 			'&key=' + GOOGLE_API_KEY
 		fetch(url, {
 			method: 'GET',
+			headers: {
+				Accept: 'application/json',
+				Authorization: ACCESS_KEY,
+			},
 		}).then((response) => response.json())
 		.then((responseJson) => {
 			Reactotron.log(responseJson)
