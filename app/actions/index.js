@@ -62,7 +62,7 @@ export function getRestaurants() {
 			'&categories=' + params.categories + 
 			'&open_now=true&limit=50&sort_by=distance'
 		fetch(url, {
-			method: 'GET',
+			method: 'G T',
 			headers: {
 				Accept: 'application/json',
 				Authorization: ACCESS_KEY,
