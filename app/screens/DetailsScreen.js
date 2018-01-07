@@ -79,7 +79,7 @@ class DetailsScreen extends Component {
                   activeOpacity={0.5}
                   onPress={this.togglePopupOn}
                   style={styles.categoriesButton}>
-                  <Text style={styles.categoriesButtonText}>{numCategories} of 7 selected</Text>
+                  <Text style={styles.categoriesButtonText}>{numCategories} of 10 selected</Text>
                   <Text style={styles.categoriesButtonText}></Text>
                 </TouchableOpacity>
               </View>
