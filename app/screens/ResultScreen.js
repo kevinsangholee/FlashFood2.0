@@ -70,7 +70,7 @@ class ResultScreen extends Component {
                         }),
                       }]}>
           { finishedLoading && this.resultAnimation() }
-          { !finishedLoading ? <ActivityIndicator size="large" color='#6600CC'/> : <RestaurantComponent/>}
+          { !finishedLoading ? <ActivityIndicator size="large" color='#6600CC'/> : <RestaurantComponent ref={(element) => this.restaurantComp = element} />}
         </Animated.View>
         <View style={styles.buttonsContainer}>
           <Animated.View style={[styles.resultbutton1Container, {
@@ -111,7 +111,8 @@ class ResultScreen extends Component {
                               outputRange: [50, 0],
                             }),
                           }]
-                        }]}>
+                        }]}
+                        onPress={this.restaurantComp.restaurantReset()}>
             <TouchableOpacity 
               style={styles.resultButton2}
               activeOpacity={0.5}>

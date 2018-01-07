@@ -1,17 +1,23 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, Text, View, Image, Animated, Easing } from 'react-native'
+import { StyleSheet, Text, View, Image, Animated, Easing, Alert } from 'react-native'
 import Reactotron from'reactotron-react-native'
 
 class RestaurantComponent extends Component {
+
+	constructor(props) {
+		super(props)
+		this.restaurantReset = this.restaurantReset.bind(this)
+	}
 
 	state = {
 		restaurantAnim1: new Animated.Value(0),
 		restaurantAnim2: new Animated.Value(0),
 		restaurantAnim3: new Animated.Value(0),
+		restaurantAnim4: new Animated.Value(0),
 	}
 
-	componentDidMount() {
+	restaurantAppear = () => {
 		Animated.sequence([
 			Animated.delay(500),
 			Animated.parallel([
@@ -42,14 +48,76 @@ class RestaurantComponent extends Component {
 						easing: Easing.elastic(1),
 					}
 				),
+				Animated.timing(
+					this.state.restaurantAnim4,
+					{
+						toValue: 1,
+						duration: 500,
+						delay: 600,
+						easing: Easing.elastic(1),
+					}
+				),
 			]),
 		]).start();
+	}
+
+	restaurantDisappear = () => {
+		Animated.sequence([
+			Animated.delay(500),
+			Animated.parallel([
+				Animated.timing(
+					this.state.restaurantAnim1,
+					{
+						toValue: 0,
+						duration: 500,
+						delay: 0,
+						easing: Easing.elastic(1),
+					}
+				),
+				Animated.timing(
+					this.state.restaurantAnim2,
+					{
+						toValue: 0,
+						duration: 500,
+						delay: 400,
+						easing: Easing.elastic(1),
+					}
+				),
+				Animated.timing(
+					this.state.restaurantAnim3,
+					{
+						toValue: 0,
+						duration: 500,
+						delay: 500,
+						easing: Easing.elastic(1),
+					}
+				),
+				Animated.timing(
+					this.state.restaurantAnim4,
+					{
+						toValue: 0,
+						duration: 500,
+						delay: 600,
+						easing: Easing.elastic(1),
+					}
+				),
+			]),
+		]).start();
+	}
+
+	restaurantReset() {
+		Alert.alert('hi');
+		this.restaurantDisappear().then(this.restaurantAppear());
+	}
+
+	componentDidMount() {
+		this.restaurantAppear();
 	}
 
 	render() {
 
 		const { currentRestaurant, distance } = this.props
-		let { restaurantAnim1, restaurantAnim2, restaurantAnim3 } = this.state;
+		let { restaurantAnim1, restaurantAnim2, restaurantAnim3, restaurantAnim4 } = this.state;
 		const categories = currentRestaurant.categories.map((item) => item.title)
 
 		return(
@@ -77,7 +145,9 @@ class RestaurantComponent extends Component {
 	                            }),
 	                        }]
 						}
-					]}>{currentRestaurant.name}</Animated.Text>
+					]}>
+					{currentRestaurant.name}
+				</Animated.Text>
 				<Animated.Text style={[styles.categoryText,
 								{
 									opacity: restaurantAnim3,
@@ -88,7 +158,22 @@ class RestaurantComponent extends Component {
 			                            }),
 			                        }]
 								}
-							]}>{categories.join(', ')}</Animated.Text>
+							]}>
+					{categories.join(', ')}
+				</Animated.Text>
+				<Animated.Text style={[styles.categoryText,
+								{
+									opacity: restaurantAnim4,
+									transform: [{
+			                            translateY: restaurantAnim4.interpolate({
+			                              	inputRange: [0, 1],
+			                              	outputRange: [50, 0],
+			                            }),
+			                        }]
+								}
+							]}>
+					{distance}
+				</Animated.Text>
 			</View>
 		)
 	}
@@ -107,7 +192,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 		alignSelf: 'stretch',
-		padding: 20,
+		padding: 40,
 	},
 
 	imageContainer: {
