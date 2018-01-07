@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { SET_CATEGORIES, SET_DISTANCE, SET_PRICE, GET_RESTAURANTS, GET_DISTANCE } from '../actions/'
+import { SET_CATEGORIES, SET_DISTANCE, SET_PRICE, GET_RESTAURANTS, LOADING_RESTAURANTS } from '../actions/'
 import Reactotron from 'reactotron-react-native'
 
 // Intial state for choices
@@ -16,8 +16,6 @@ let initialResults = {
 	currentRestaurant: {},
 	distance: '0 mi',
 }
-
-let allRestaurants = []
 
 // Reducer for choices
 const choices = (state = initialChoices, action) => {
@@ -72,9 +70,13 @@ const results = (state = initialResults, action) => {
 			return {
 				...state,
 				finishedLoading: true,
-				restaurants: allRestaurants,
 				currentRestaurant: action.currentRestaurant,
 				distance: action.distance,
+			}
+		case LOADING_RESTAURANTS:
+			return {
+				...state,
+				finishedLoading: false,
 			}
 		default:
 			return state

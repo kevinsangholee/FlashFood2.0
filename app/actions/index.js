@@ -4,6 +4,7 @@ export const SET_CATEGORIES = 'SET_CATEGORIES'
 export const SET_DISTANCE =  'SET_DISTANCE'
 export const SET_PRICE = 'SET_PRICE'
 export const GET_RESTAURANTS = 'GET_RESTAURANTS'
+export const LOADING_RESTAURANTS = 'LOADING_RESTAURANTS'
 
 const restaurantToQuery = {
     American: "tradamerican",
@@ -70,6 +71,7 @@ export function getRestaurants() {
 				},
 			}).then((response) => response.json())
 			.then((responseJson) => {
+
 				dispatch(getResultInfo(responseJson, position.coords.latitude, position.coords.longitude))
 			})
 			.catch((error) => {
@@ -86,9 +88,11 @@ function getRandomInt(max) {
 
 export function getResultInfo(json, userLat, userLong) {
 	let restaurants = json['businesses']
+	let index = getRandomInt(restaurants.length)
 	let currentRestaurant = restaurants[getRandomInt(restaurants.length)]
 
 	return function(dispatch, getState) {
+		dispatch(loadingRestaurants())
 		var url = 'https://maps.googleapis.com/maps/api/directions/json?origin=' +
 			userLat + ',' + userLong +
 			'&destination=' + currentRestaurant['coordinates']['latitude'] + ','
@@ -103,7 +107,7 @@ export function getResultInfo(json, userLat, userLong) {
 		}).then((response) => response.json())
 		.then((responseJson) => {
 			Reactotron.log(responseJson)
-			dispatch(returnResults(restaurants, currentRestaurant,
+			dispatch(returnResults(currentRestaurant,
 				responseJson['routes'][0]['legs'][0]['distance']['text']))
 		})
 		.catch((error) => {
@@ -113,11 +117,16 @@ export function getResultInfo(json, userLat, userLong) {
 	}
 }
 
-export function returnResults(restaurantList, currentRestaurant, distance) {
+export function returnResults(currentRestaurant, distance) {
 	return {
 		type: GET_RESTAURANTS,
-		restaurants: restaurantList,
 		currentRestaurant: currentRestaurant,
 		distance: distance,
+	}
+}
+
+export function loadingRestaurants() {
+	return {
+		type: LOADING_RESTAURANTS,
 	}
 }
