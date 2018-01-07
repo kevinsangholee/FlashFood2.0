@@ -8,6 +8,7 @@ export default class ResultScreen extends Component {
     resultAnim: new Animated.Value(0),
     button1Anim: new Animated.Value(0),
     button2Anim: new Animated.Value(0),
+    button3Anim: new Animated.Value(0),
   }
 
   componentDidMount() {
@@ -26,12 +27,21 @@ export default class ResultScreen extends Component {
           {
             toValue: 1,
             duration: 500,
-            delay: 800,
+            delay: 900,
             easing: Easing.elastic(1),
           }
         ),
         Animated.timing(
           this.state.button2Anim,
+          {
+            toValue: 1,
+            duration: 500,
+            delay: 800,
+            easing: Easing.elastic(1),
+          }
+        ),
+        Animated.timing(
+          this.state.button3Anim,
           {
             toValue: 1,
             duration: 500,
@@ -45,7 +55,7 @@ export default class ResultScreen extends Component {
 
   render() {
 
-    let { resultAnim, button1Anim, button2Anim } = this.state;
+    let { resultAnim, button1Anim, button2Anim, button3Anim } = this.state;
 
     return (
       <View style={styles.mainContainer}>
@@ -69,13 +79,28 @@ export default class ResultScreen extends Component {
             <TouchableOpacity 
               style={styles.resultButton1}
               activeOpacity={0.5}>
+              <Text style={styles.resultButtonText1}>&#9881;</Text>
+            </TouchableOpacity>
+          </Animated.View>
+           <Animated.View style={[styles.resultbutton1Container, {
+                          opacity: button2Anim,
+                          transform: [{
+                            translateY: button2Anim.interpolate({
+                              inputRange: [0, 1],
+                              outputRange: [50, 0],
+                            }),
+                          }]
+                        }]}>
+            <TouchableOpacity 
+              style={styles.resultButton1}
+              activeOpacity={0.5}>
               <Text style={styles.resultButtonText1}>&#9825;</Text>
             </TouchableOpacity>
           </Animated.View>
           <Animated.View style={[styles.resultbutton2Container, {
-                          opacity: button2Anim,
+                          opacity: button3Anim,
                           transform: [{
-                            translateY: button2Anim.interpolate({
+                            translateY: button3Anim.interpolate({
                               inputRange: [0, 1],
                               outputRange: [50, 0],
                             }),
