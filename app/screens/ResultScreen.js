@@ -57,6 +57,15 @@ class ResultScreen extends Component {
   }
 
   triggerReroll() {
+    Animated.sequence([
+      Animated.timing(
+        this.state.resultAnim,
+        {
+          toValue: 0,
+          duration: 700,
+        }
+      ),
+    ]).start();
     this.restaurantComp.getWrappedInstance().restaurantDisappear();
     setTimeout(() => {this.props.getRestaurants();}, 500)
     this.restaurantComp.getWrappedInstance().restaurantAppear();
