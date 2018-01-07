@@ -49,6 +49,7 @@ export function setPrice(price) {
 
 export function getRestaurants() {
 	return function(dispatch, getState) {
+		dispatch(loadingRestaurants())
 		navigator.geolocation.getCurrentPosition((position) => {
 			var params = {
 				price: encodeURIComponent(getState().choices.price),
@@ -92,7 +93,6 @@ export function getResultInfo(json, userLat, userLong) {
 	let currentRestaurant = restaurants[getRandomInt(restaurants.length)]
 
 	return function(dispatch, getState) {
-		dispatch(loadingRestaurants())
 		var url = 'https://maps.googleapis.com/maps/api/directions/json?origin=' +
 			userLat + ',' + userLong +
 			'&destination=' + currentRestaurant['coordinates']['latitude'] + ','

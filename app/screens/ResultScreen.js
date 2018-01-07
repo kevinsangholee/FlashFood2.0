@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { StyleSheet, Text, View, Button, TouchableOpacity, ActivityIndicator, Animated, Easing } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import RestaurantComponent from '../components/RestaurantComponent'
+import { getRestaurants } from '../actions'
 
 class ResultScreen extends Component {
 
@@ -53,6 +54,12 @@ class ResultScreen extends Component {
         ),
       ]),
     ]).start();
+  }
+
+  triggerReroll() {
+    this.restaurantComp.getWrappedInstance().restaurantDisappear();
+    setTimeout(() => {this.props.getRestaurants();}, 500)
+    this.restaurantComp.getWrappedInstance().restaurantAppear();
   }
 
   render() {
@@ -117,7 +124,7 @@ class ResultScreen extends Component {
             <TouchableOpacity 
               style={styles.resultButton2}
               activeOpacity={0.5}
-              onPress={() => this.restaurantComp.getWrappedInstance().restaurantReset()}>
+              onPress={() => this.triggerReroll()}>
               <Text style={styles.resultButtonText2}>Next &rarr;</Text>
             </TouchableOpacity>
           </Animated.View>
@@ -132,6 +139,14 @@ const mapStateToProps = (state) => {
   return {
     finishedLoading: state.results.finishedLoading,
     currentRestaurant: state.results.currentRestaurant,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getRestaurants: () => {
+      dispatch(getRestaurants())
+    }
   }
 }
 
@@ -229,4 +244,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default connect(mapStateToProps, null)(ResultScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(ResultScreen)

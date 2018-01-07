@@ -7,7 +7,7 @@ class RestaurantComponent extends Component {
 
 	constructor(props) {
 		super(props)
-		this.restaurantReset = this.restaurantReset.bind(this)
+		this.restaurantDisappear = this.restaurantDisappear.bind(this)
 	}
 
 	state = {
@@ -35,7 +35,7 @@ class RestaurantComponent extends Component {
 					{
 						toValue: 1,
 						duration: 500,
-						delay: 400,
+						delay: 100,
 						easing: Easing.elastic(1),
 					}
 				),
@@ -44,7 +44,7 @@ class RestaurantComponent extends Component {
 					{
 						toValue: 1,
 						duration: 500,
-						delay: 500,
+						delay: 200,
 						easing: Easing.elastic(1),
 					}
 				),
@@ -53,7 +53,7 @@ class RestaurantComponent extends Component {
 					{
 						toValue: 1,
 						duration: 500,
-						delay: 600,
+						delay: 300,
 						easing: Easing.elastic(1),
 					}
 				),
@@ -63,14 +63,12 @@ class RestaurantComponent extends Component {
 
 	restaurantDisappear = () => {
 		Animated.sequence([
-			Animated.delay(500),
 			Animated.parallel([
 				Animated.timing(
 					this.state.restaurantAnim1,
 					{
 						toValue: 0,
 						duration: 500,
-						delay: 0,
 						easing: Easing.elastic(1),
 					}
 				),
@@ -79,7 +77,6 @@ class RestaurantComponent extends Component {
 					{
 						toValue: 0,
 						duration: 500,
-						delay: 400,
 						easing: Easing.elastic(1),
 					}
 				),
@@ -88,7 +85,6 @@ class RestaurantComponent extends Component {
 					{
 						toValue: 0,
 						duration: 500,
-						delay: 500,
 						easing: Easing.elastic(1),
 					}
 				),
@@ -97,17 +93,11 @@ class RestaurantComponent extends Component {
 					{
 						toValue: 0,
 						duration: 500,
-						delay: 600,
 						easing: Easing.elastic(1),
 					}
 				),
 			]),
 		]).start();
-	}
-
-	restaurantReset = () => {
-		Alert.alert('hi');
-		this.restaurantDisappear().then(this.restaurantAppear());
 	}
 
 	componentDidMount() {
