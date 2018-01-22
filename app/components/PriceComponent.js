@@ -37,15 +37,16 @@ const mapStateToProps = (state) => {
 const styles = StyleSheet.create({
 
   detailsContainer: {
-    marginVertical: 6,
+    marginVertical: 14,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 5,
     backgroundColor: '#FFF',
     padding: 20,
-    shadowColor: '#FFFF00',
-    shadowOpacity: 0.4,
-    shadowRadius: 10,
+    shadowOffset: { width: 0.5, height: 0.5 },
+    shadowColor: '#6600CC',
+    shadowOpacity: 1,
+    shadowRadius: 5,
   },
 
   detailsHeaderContainer: {

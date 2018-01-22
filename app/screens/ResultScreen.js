@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, Button, TouchableOpacity, ActivityIndicator, Animated, Easing } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity, Image, ActivityIndicator, Animated, Easing } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import RestaurantComponent from '../components/RestaurantComponent'
 import { getRestaurants } from '../actions'
 
 class ResultScreen extends Component {
+
+  static navigationOptions = {
+    headerTitle: '',
+    tabBarIcon: ({ tintColor }) => (
+      <Image
+        source = {require('./../../images/flash.png')}
+        style={[styles.icon, {tintColor: tintColor}]}
+      />
+    ),
+  }
 
   state = {
     resultAnim: new Animated.Value(0),
@@ -161,12 +171,17 @@ const mapDispatchToProps = (dispatch) => {
 
 const styles = StyleSheet.create({
 
+  icon: {
+    height: 25,
+    width: 25,
+  },
+
   mainContainer: {
     flex: 1,
     backgroundColor: '#FFF',
     justifyContent: 'center',
     padding: 20,
-    paddingTop: 50,
+    paddingTop: 10,
 
   },
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, Button, TouchableOpacity, ScrollView, Animated, Easing, Alert } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity, StatusBar, ScrollView, Image, Animated, Easing, Alert } from 'react-native';
 import { StackNavigator, NavigationActions } from 'react-navigation';
 import { getRestaurants } from '../actions';
 import CategoryButton from './../components/CategoryButton';
@@ -10,6 +10,16 @@ import Reactotron from 'reactotron-react-native'
 
 
 class DetailsScreen extends Component {
+
+  static navigationOptions = {
+    headerTitle: '',
+    tabBarIcon: ({ tintColor }) => (
+      <Image
+        source = {require('./../../images/settings.png')}
+        style={[styles.icon, {tintColor: tintColor}]}
+      />
+    ),
+  }
 
   state = {
     popupAnim: new Animated.Value(0),
@@ -56,18 +66,19 @@ class DetailsScreen extends Component {
 
     return (
       <View style={styles.mainContainer}>
+        
         <View style={styles.scrollViewContainer1}>
           <ScrollView style={styles.scrollView1}>
-            <View style={{height: 40}}></View>
+            <View style={{height: 20}}></View>
             {/*<View style={styles.headerContainer}>
               <Text style={styles.headerText}>Details</Text>
             </View>*/}
-            <TouchableOpacity
+            {/*<TouchableOpacity
               style={[styles.backButton]}
               onPress={() => this.props.navigation.dispatch(NavigationActions.back())}
               activeOpacity={0.5}>
               <Text style={styles.backButtonText}>&larr; Home</Text>
-            </TouchableOpacity>
+            </TouchableOpacity>*/}
             <DistanceComponent />
             <PriceComponent />
             <View style={styles.detailsContainer}>
@@ -92,7 +103,7 @@ class DetailsScreen extends Component {
                 }
               }
               activeOpacity={0.5}>
-              <Text style={styles.flashButtonText}>Flash ⚡ Food</Text>
+              <Text style={styles.flashButtonText}>Flash Food</Text>
             </TouchableOpacity>
             <View style={{height: 20}}></View>
           </ScrollView>
@@ -182,9 +193,15 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const styles = StyleSheet.create({
+
+  icon: {
+    height: 25,
+    width: 25,
+  },
+
   mainContainer: {
     flex: 1,
-    backgroundColor: '#6600CC',
+    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
@@ -202,15 +219,16 @@ const styles = StyleSheet.create({
   },
 
   detailsContainer: {
-    marginVertical: 6,
+    marginVertical: 14,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 5,
     backgroundColor: '#FFF',
     padding: 20,
-    shadowColor: '#FFFF00',
-    shadowOpacity: 0.4,
-    shadowRadius: 10,
+    shadowOffset: { width: 0.5, height: 0.5 },
+    shadowColor: '#6600CC',
+    shadowOpacity: 1,
+    shadowRadius: 5,
   },
 
   detailsHeaderContainer: {
@@ -268,13 +286,14 @@ const styles = StyleSheet.create({
   },
 
   detailsContainer2: {
-    marginVertical: 6,
+    marginVertical: 14,
     alignItems: 'center',
     borderRadius: 5,
     backgroundColor: '#FFF',
-    shadowColor: '#FFFF00',
-    shadowOpacity: 0.4,
-    shadowRadius: 10,
+    shadowOffset: { width: 0.5, height: 0.5 },
+    shadowColor: '#6600CC',
+    shadowOpacity: 1,
+    shadowRadius: 5,
     flex: 1,
     overflow: 'hidden',
   },
@@ -364,9 +383,10 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#FFF',
     borderRadius: 5,
+    shadowOffset: { width: 0.5, height: 0.5 },
     shadowColor: '#00FF00',
     shadowOpacity: 1,
-    shadowRadius: 20,
+    shadowRadius: 5,
   },
 
   flashButtonText: {
