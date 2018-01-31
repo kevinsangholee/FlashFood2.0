@@ -35,7 +35,7 @@ class RestaurantComponent extends Component {
 					{
 						toValue: 1,
 						duration: 500,
-						delay: 100,
+						delay: 0,
 						easing: Easing.elastic(1),
 					}
 				),
@@ -44,7 +44,7 @@ class RestaurantComponent extends Component {
 					{
 						toValue: 1,
 						duration: 500,
-						delay: 200,
+						delay: 0,
 						easing: Easing.elastic(1),
 					}
 				),
@@ -53,7 +53,7 @@ class RestaurantComponent extends Component {
 					{
 						toValue: 1,
 						duration: 500,
-						delay: 300,
+						delay: 0,
 						easing: Easing.elastic(1),
 					}
 				),
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
 		height: 100,
 		borderRadius: 50,
 		shadowColor: '#000',
-	    shadowOpacity: 0.5,
+	    shadowOpacity: 0.2,
 	    shadowRadius: 5,
 	    shadowOffset: { width: 0, height: 1 },
 		width: 100,

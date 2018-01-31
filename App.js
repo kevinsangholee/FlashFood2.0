@@ -20,8 +20,8 @@ const Navigator = TabNavigator({
 	//initialRouteName: 'Result',
 	tabBarPosition: 'top',
 	swipeEnabled: true,
+	animationEnabled: true,
 	tabBarOptions: {
-		animationEnabled: true,
 		activeTintColor: '#6600CC',
 		showLabel: false,
 		style: { 

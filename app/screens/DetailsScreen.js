@@ -69,7 +69,6 @@ class DetailsScreen extends Component {
         
         <View style={styles.scrollViewContainer1}>
           <ScrollView style={styles.scrollView1}>
-            <View style={{height: 20}}></View>
             {/*<View style={styles.headerContainer}>
               <Text style={styles.headerText}>Details</Text>
             </View>*/}
@@ -219,16 +218,16 @@ const styles = StyleSheet.create({
   },
 
   detailsContainer: {
-    marginVertical: 14,
+    marginVertical: 10,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 5,
     backgroundColor: '#FFF',
     padding: 20,
     shadowOffset: { width: 0.5, height: 0.5 },
-    shadowColor: '#6600CC',
-    shadowOpacity: 1,
+    shadowColor: '#000',
     shadowRadius: 5,
+    shadowOpacity: 0.2,
   },
 
   detailsHeaderContainer: {
@@ -241,7 +240,7 @@ const styles = StyleSheet.create({
 
   detailsHeader: {
     flex: 1,
-    fontWeight: '200',
+    fontWeight: '300',
     fontSize: 22,
     paddingBottom: 20,
     color: '#616161',
@@ -255,8 +254,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     overflow: 'hidden',
-    backgroundColor: '#6600CC',
-    paddingVertical: 20,
+    backgroundColor: '#FFF',
   },
 
   heightZero: {
@@ -276,7 +274,7 @@ const styles = StyleSheet.create({
 
   popupContainer: {
     flex: 1,
-    padding: 20,
+    padding: 0,
   },
 
   headerContainer: {
@@ -286,12 +284,11 @@ const styles = StyleSheet.create({
   },
 
   detailsContainer2: {
-    marginVertical: 14,
+    marginVertical: 0,
     alignItems: 'center',
     borderRadius: 5,
     backgroundColor: '#FFF',
     shadowOffset: { width: 0.5, height: 0.5 },
-    shadowColor: '#6600CC',
     shadowOpacity: 1,
     shadowRadius: 5,
     flex: 1,
@@ -381,16 +378,16 @@ const styles = StyleSheet.create({
   flashButton:  {
     marginVertical: 20,
     padding: 20,
-    backgroundColor: '#FFF',
+    backgroundColor: '#6600CC',
     borderRadius: 5,
     shadowOffset: { width: 0.5, height: 0.5 },
-    shadowColor: '#00FF00',
+    shadowColor: '#000000',
     shadowOpacity: 1,
     shadowRadius: 5,
   },
 
   flashButtonText: {
-    color: '#6600CC',
+    color: '#FFF',
     fontSize: 32,
     fontWeight: '200',
     letterSpacing: 1,

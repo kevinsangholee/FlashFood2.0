@@ -113,7 +113,7 @@ class ResultScreen extends Component {
             <TouchableOpacity 
               style={styles.resultButton1}
               activeOpacity={0.5}>
-              <Text style={styles.resultButtonText1}>&#9881;</Text>
+              <Text style={styles.resultButtonText1}></Text>
             </TouchableOpacity>
           </Animated.View>
           {/*<Animated.View style={[styles.resultbutton1Container, {
@@ -144,7 +144,7 @@ class ResultScreen extends Component {
               style={styles.resultButton2}
               activeOpacity={0.5}
               onPress={() => this.triggerReroll()}>
-              <Text style={styles.resultButtonText2}>Next &rarr;</Text>
+              <Text style={styles.resultButtonText2}>></Text>
             </TouchableOpacity>
           </Animated.View>
         </View>
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
   },
 
   buttonsContainer: {
-    flex: 1.5,
+    height: 100,
     alignContent: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
@@ -218,37 +218,45 @@ const styles = StyleSheet.create({
 
   resultbutton1Container: {
     flex: 1,
+    alignItems: 'flex-start',
   },
 
   resultbutton2Container: {
-    flex: 3,
+    flex: 1,
+    alignItems: 'flex-end',
   },
 
   resultButton1: {
-    flex: 2,
+    height: 80,
+    width: 80,
     alignContent: 'center',
     justifyContent: 'center',
     backgroundColor: '#FFF',
-    borderWidth: 1,
-    borderColor: '#6600CC',
     marginTop: 20,
     marginLeft: 4,
     marginRight: 4,
     borderRadius: 5,
+    padding: 20,
+    shadowOffset: { height: 2 },
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
   },
 
   resultButton2: {
-    flex: 1,
+    height: 80,
+    width: 80,
     alignContent: 'center',
     justifyContent: 'center',
-    backgroundColor: '#6600CC',
+    backgroundColor: '#FFF',
     marginTop: 20,
     marginLeft: 4,
     marginRight: 4,
+    padding: 20,
     borderRadius: 5,
     shadowOffset: { height: 2 },
     shadowColor: '#000',
-    shadowOpacity: 0.5,
+    shadowOpacity: 0.2,
     shadowRadius: 5,
   },
 
@@ -260,7 +268,7 @@ const styles = StyleSheet.create({
   },
 
   resultButtonText2: {
-    color: '#FFF',
+    color: 'green',
     fontSize: 32,
     fontWeight: '100',
     textAlign: 'center',

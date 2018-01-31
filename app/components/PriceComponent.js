@@ -37,16 +37,16 @@ const mapStateToProps = (state) => {
 const styles = StyleSheet.create({
 
   detailsContainer: {
-    marginVertical: 14,
+    marginVertical: 10,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 5,
     backgroundColor: '#FFF',
     padding: 20,
     shadowOffset: { width: 0.5, height: 0.5 },
-    shadowColor: '#6600CC',
-    shadowOpacity: 1,
+    shadowColor: '#000',
     shadowRadius: 5,
+    shadowOpacity: 0.2,
   },
 
   detailsHeaderContainer: {
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
 
   detailsHeader: {
     flex: 1,
-    fontWeight: '200',
+    fontWeight: '300',
     fontSize: 22,
     paddingBottom: 20,
     color: '#616161',
